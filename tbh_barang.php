@@ -110,8 +110,8 @@ if($exe){
                   <input type="text" name="jumlah" class="form-control" id="exampleInputEmail1" placeholder="jumlah" data-error="Jumlah Tidak Boleh Kosong" required><div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group">
-        <label for="exampleInputDate">Tangal Masuk</label>
-                   <div class="input-group date">
+                    <label for="exampleInputDate">Tangal Masuk</label>
+                    <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
