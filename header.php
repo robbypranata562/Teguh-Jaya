@@ -22,11 +22,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="plugins/select2/select2.min.css">
   <!-- Sugestt -->
-  <script type="text/javascript" src="js/jquery.js"></script>
-<script type='text/javascript' src='js/jquery.autocomplete.js'></script>
+
    
    <!-- Data Table -->
-    <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="/admin/plugins/datatables/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
@@ -34,7 +33,7 @@
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
    <!-- daterange picker -->
-  <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- bootstrap datepicker -->
   <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -61,7 +60,9 @@
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
       <!-- Sidebar toggle button-->
-      
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
@@ -194,67 +195,43 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
-        <li class="header">MENU UTAMA</li>
-		  <li class="treeview">
-          <a href="home.php">
-      
-
-      
-            <i class="fa fa-home"></i> <span>Home</span>
-            <span class="pull-right-container">
-            
-            </span>
-          </a>
-
-         <!--  <ul class="treeview-menu">
-            <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-            <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-          </ul> -->
-
-        </li>
-<?php $jabatan=$_SESSION['level']?> 
-      <?php if ($jabatan=='Super Super Admin' or $jabatan=='Super Admin' or $jabatan=='Admin'){
-		?>
-	  <li class="treeview">
+      <li class="header">MENU UTAMA</li>
+		  <li class="treeview"><a href="home.php"><i class="fa fa-home"></i> <span>Home</span><span class="pull-right-container"></span></a></li>
+      <?php $jabatan=$_SESSION['level']?> 
+      <?php if ($jabatan=='Super Super Admin' or $jabatan=='Super Admin' or $jabatan=='Admin') { ?>
+	      <li class="treeview">
           <a href="penjualan3.php">
-		  
-
-		  
             <i class="fa fa-cart-plus"></i> <span>Penjualan</span>
             <span class="pull-right-container">
-            
             </span>
           </a>
-
-         <!--  <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-          </ul> -->
-
         </li>
-
-    <li class="treeview">
+        <li class="treeview">
           <a href="return_barang.php">
-      
-
-      
             <i class="fa fa-retweet"></i> <span>Return Barang</span>
-            <span class="pull-right-container">
-            
-            </span>
+            <span class="pull-right-container"></span>
           </a>
-
-         <!--  <ul class="treeview-menu">
-            <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-            <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-          </ul> -->
-
         </li>
 	  <?php } ?>
-	  
-	  <?php $jabatan=$_SESSION['level']?> 
-			<?php if ($jabatan=='Super Super Admin' or $jabatan=='Super Admin' or $jabatan=='Stok Admin'){
-		?>
+    <?php $jabatan=$_SESSION['level']?>
+		<?php if ($jabatan=='Super Super Admin' or $jabatan=='Super Admin' or $jabatan=='Stok Admin') { ?>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-files-o"></i>
+            <span>Data Pembelian Barang</span>
+            <span class="pull-right-container">
+              <span class="label label-primary pull-right">3</span>
+            </span>
+          </a>
+		  
+          <ul class="treeview-menu">
+            <li><a href="purchaseorderlist.php"><i class="fa fa-circle-o"></i>Daftar Purchase Order</a></li>
+            <li><a href="purchaseorder.php"><i class="fa fa-circle-o"></i>Tambah Purchase Order</a></li>
+          </ul>
+        </li>
+		<?php } ?>
+    <?php $jabatan=$_SESSION['level']?>
+		<?php if ($jabatan=='Super Super Admin' or $jabatan=='Super Admin' or $jabatan=='Stok Admin') { ?>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
@@ -267,12 +244,15 @@
           <ul class="treeview-menu">
             <li><a href="tampil_barang.php"><i class="fa fa-circle-o"></i> Stok Barang</a></li>
             <li><a href="tbh_barang.php"><i class="fa fa-circle-o"></i> Tambah Barang</a></li>
-			<?php } ?>
+		<?php } ?>
 			<?php $jabatan=$_SESSION['level']?> 
-			<?php if ($jabatan=='Super Super Admin' or $jabatan=='Super Admin'){
-		?>
-			<li><a href="notif.php"><i class="fa fa-circle-o"></i> Atur Notif</a></li>
-            <?php } ?>
+			<?php if ($jabatan=='Super Super Admin' or $jabatan=='Super Admin') { ?>
+			  <li class="treeview">
+          <a href="notif.php">
+            <i class="fa fa-circle-o"></i> Atur Notif
+          </a>
+        </li>
+      <?php } ?>
           </ul>
         </li> 
 
@@ -354,27 +334,20 @@
 </ul>
 		  </li>
 		  <li class="treeview">
-
-		<a href="#">
-            <i class="fa fa-users"></i>
-            <span>Data Karyawan</span>
-            <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="karyawan_tampil.php"><i class="fa fa-circle-o"></i>karyawan</a></li>
-            <li><a href="karyawan_tbh.php"><i class="fa fa-circle-o"></i> Tambah Karyawan</a></li>
-           
-			<li><a href="karyawan_reg_admin.php"><i class="fa fa-circle-o"></i>Tambah Admin</a></li>
-			<li><a href="karyawan_tampiladmin.php"><i class="fa fa-circle-o"></i>Akun Admin</a></li>
-			<li><a href="karyawan_hislogin.php"><i class="fa fa-circle-o"></i>History Login</a></li>
-	
-
-            
-			
-	
-</ul>
+        <a href="#">
+          <i class="fa fa-users"></i>
+          <span>Data Karyawan</span>
+          <span class="pull-right-container">
+            <span class="label label-primary pull-right">4</span>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="karyawan_tampil.php"><i class="fa fa-circle-o"></i>karyawan</a></li>
+          <li><a href="karyawan_tbh.php"><i class="fa fa-circle-o"></i> Tambah Karyawan</a></li>
+          <li><a href="karyawan_reg_admin.php"><i class="fa fa-circle-o"></i>Tambah Admin</a></li>
+          <li><a href="karyawan_tampiladmin.php"><i class="fa fa-circle-o"></i>Akun Admin</a></li>
+          <li><a href="karyawan_hislogin.php"><i class="fa fa-circle-o"></i>History Login</a></li>
+        </ul>
 		  </li>
        <li class="treeview">
           <a href="history_penjualan.php">
@@ -408,37 +381,9 @@
 
         </li>  -->
 		<?php } ?>
-		<!-- <li class="treeview">
-          <a href="#">
-      
-
-      
-            <i class="fa fa-book"></i> <span>###</span>
-            <span class="pull-right-container">
-            
-            </span>
-          </a>
-
-       
-
-        </li>  -->
-      
-		  
-
-            
-  
           </ul>
       </li>
-
         </li>
-       
-        
-       
-        
-        
-        
-        
-        
       </ul>
     </section>
     <!-- /.sidebar -->

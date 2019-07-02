@@ -204,7 +204,8 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 2.2.3 -->
-<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script type="text/javascript" src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script type='text/javascript' src="plugins/jQueryUI/jquery-ui.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <!-- DataTables -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
@@ -219,15 +220,14 @@
 <!-- AdminLTE for demo purposes -->
 
 <script src="dist/js/demo.js"></script>
-<script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-<script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
+<!-- <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="plugins/input-mask/jquery.inputmask.extensions.js"></script> -->
 <!-- date-range-picker -->
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<!-- <script src="plugins/daterangepicker/daterangepicker.js"></script> -->
 <!-- bootstrap datepicker -->
 <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
+<!-- <script src="plugins/daterangepicker/moment.min.js"></script> -->
 <script src="plugins/select2/select2.full.min.js"></script>
 <script src="plugins/iCheck/icheck.min.js"></script>
 <script src="validator.js"></script>
