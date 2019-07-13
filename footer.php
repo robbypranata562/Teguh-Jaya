@@ -208,13 +208,13 @@
 <script type='text/javascript' src="plugins/jQueryUI/jquery-ui.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <!-- DataTables -->
-<script src="plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="/admin/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/admin/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="/admin/bootstrap/js/bootstrap.min.js"></script>
 <!-- SlimScroll -->
-<script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="/admin/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
-<script src="plugins/fastclick/fastclick.js"></script>
+<script src="/admin/plugins/fastclick/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -225,14 +225,14 @@
 <!-- date-range-picker -->
 <!-- <script src="plugins/daterangepicker/daterangepicker.js"></script> -->
 <!-- bootstrap datepicker -->
-<script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="/admin/plugins/datepicker/bootstrap-datepicker.js"></script>
 
 <!-- <script src="plugins/daterangepicker/moment.min.js"></script> -->
-<script src="plugins/select2/select2.full.min.js"></script>
-<script src="plugins/iCheck/icheck.min.js"></script>
+<script src="/admin/plugins/select2/select2.full.min.js"></script>
+<script src="/admin/plugins/iCheck/icheck.min.js"></script>
 <script src="validator.js"></script>
 <script>
- $('select').select2();
+  $('.select2').select2();
 
   $(function () {
     $("#example1").DataTable();

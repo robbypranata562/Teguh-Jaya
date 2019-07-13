@@ -67,11 +67,6 @@
 		?>
 		<a href="tbh_barang.php"><h3 class="box-title"><span class="glyphicon glyphicon-plus"></span>Stock Barang</h3></a> 
         <?php } ?>
-
-         
-
-
-
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
               <i class="fa fa-minus"></i></button>
@@ -81,12 +76,15 @@
         </div>
 		
         <div class="box-body">
-          <table id="example1" class="table table-bordered table-striped">
+          <table id="titem" class="table table-bordered table-striped">
           <?php $jabatan=$_SESSION['level']?>  
 
           <thead>
           <tr>
               <th>Tanggal Masuk</th>
+              <?php if ($jabatan=='Super Admin'or $jabatan=='Super Super Admin' or $jabatan=='Stok Admin'){ ?>
+              <th>Histori Barang</th>
+              <?php } ?>
               <th>Nama Barang</th>
               <th>Jenis Barang</th>
               <th>Supplier</th>
@@ -96,6 +94,7 @@
               <th>Harga Atas</th>
             <?php } ?>
               <th>Stok</th>
+              <th>Konversi</th>
               <th>Konversi Stok Ke Satuan</th>
               <th>Min Stok</th>
             <?php if ($jabatan=='Super Admin'or $jabatan=='Super Super Admin' or $jabatan=='Stok Admin'){ ?>
@@ -106,7 +105,7 @@
           <tbody>
           <?php
           $sql="SELECT
-          item.TanggalMasuk,
+          Date(item.TanggalMasuk) as TanggalMasuk,
           item.NamaBarang,
           item.JenisBarang,
           item.SupplierBarang,
@@ -114,7 +113,7 @@
           item.HargaBawah,
           item.HargaAtas,
           item.SatuanKonversi,
-          item.Stok,
+          item.JumlahSatuanKecil,
           item.MinStock,
 
           item.id
@@ -124,18 +123,18 @@
           while($data=mysqli_fetch_array($exe))
           {
 
-            if ($data['Stok'] >= $data["SatuanKonversi"])
+            if ($data['JumlahSatuanKecil'] >= $data["SatuanKonversi"])
             {
-                $lusin = $data['Stok'] / $data["SatuanKonversi"];
-                $pcs = $data['Stok'] % $data["SatuanKonversi"];
+                $lusin = round($data['JumlahSatuanKecil'] / $data["SatuanKonversi"],0,PHP_ROUND_HALF_DOWN);
+                $pcs = $data['JumlahSatuanKecil'] % $data["SatuanKonversi"];
                 $StokLargeUnit = $lusin . " Lusin " . " - " . $pcs . " Pcs";
             }
             else
             {
-              $StokLargeUnit = $data['Stok'] . " Pcs";
+              $StokLargeUnit = $data['JumlahSatuanKecil'] . " Pcs";
             }
 
-            if ($data['Stok'] <= $data['MinStock'])
+            if ($data['JumlahSatuanKecil'] <= $data['MinStock'])
             {
               $rowclass = "red-row-class"; 
             }
@@ -143,46 +142,33 @@
             {
               $rowclass = ""; 
             }
-                
-            // $jumlah_toko= $data['jumlah'];
-            // if ($data['jumlah'] >=12 ) 
-            // {
-            //   $lusin = (floor($data['jumlah']/12));
-            //   $pcs = ($data['jumlah']%12);
-            // if ($pcs != 0) 
-            // {
-            //   $jumlah_barang = $lusin. " Lusin  ";
-            // }
-            // else
-            // {
-            //   $jumlah_barang = $lusin. " Lusin  ";
-            // }
-            //   $jum_pcs = ($data['jumlah']%12). " Pcs";
-            // }
-            // else
-            // {
-            //   $jumlah_barang = 0 ;
-            //   $jum_pcs = ($data['jumlah']%12). " Pcs";
-            // }
             //Format uang
-            //$harga_bawah ="Rp. ".number_format($data['harga_bawah'],'0',',','.');
-            //$harga_atas = "Rp. ".number_format($data['harga_atas'],'0',',','.');
-            //$modal = "Rp. ".number_format($data['modal'],'0',',','.');
+            $harga_bawah ="Rp. ".number_format($data['HargaBawah'],'0',',','.');
+            $harga_atas = "Rp. ".number_format($data['HargaAtas'],'0',',','.');
+            $modal = "Rp. ".number_format($data['Modal'],'0',',','.');
             ?>
             <?php $jabatan=$_SESSION['level']?> 
             <tr class="<?php echo $rowclass; ?>">
             <td><?php echo $data['TanggalMasuk'];?></td>
+            <?php if ($jabatan=='Super Admin' or $jabatan=='Super Super Admin' or $jabatan=='Stok Admin'){
+            ?>
+             <td>
+               <a  class="btn btn-warning" href="HistoryBarang.php?id=<?php echo $data['id'];?>"> <span class="glyphicon glyphicon-pencil"></span> History Barang</a>
+             </td>
+            <?php } ?>
             <td><?php echo $data['NamaBarang'];?></td>
             <td><?php echo $data['JenisBarang'];?></td>
             <td><?php echo $data['SupplierBarang'];?></td>
             <?php if ($jabatan=='Super Admin' or $jabatan=='Super Super Admin' or $jabatan=='Stok Admin'){
             ?>
-            <td><?php echo $data['Modal'];?></td>
-            <td><?php echo $data['HargaBawah'];?></td>
-            <td><?php echo $data['HargaAtas'];?></td>
+            <td><?php echo $modal?></td>
+            <td><?php echo $harga_bawah;?></td>
+            <td><?php echo $harga_atas?></td>
             <?php } ?>
             <td><?php echo $StokLargeUnit; ?></td>
-            <td><?php echo $data['Stok'];?></td>
+            <td><?php echo   $data["SatuanKonversi"]; ?></td>
+          
+            <td><?php echo $data['JumlahSatuanKecil'];?></td>
             <td><?php echo $data['MinStock'];?></td>
             <?php if ($jabatan=='Super Admin' or $jabatan=='Super Super Admin' or $jabatan=='Stok Admin'){
             ?>
@@ -208,5 +194,17 @@
   <!-- /.content-wrapper -->
   
 <?php include "footer.php";?>
+
+<script>
+    $('#titem').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": false,
+        "info": false,
+        "autoWidth": true
+        "scrollX": true
+    });
+</script>
  
  

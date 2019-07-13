@@ -41,10 +41,10 @@
             TanggalPembayaran = '".$tanggal_pembayaran."'
             where Id = '".$id."'";
             print_r($sql_purchase_order_main);
-            $exe=mysqli_query($koneksi,$sql_purchase_order_main);
+            //$exe=mysqli_query($koneksi,$sql_purchase_order_main);
             if($koneksi->query($sql_purchase_order_main) === TRUE)
             {
-              echo ("<script>location.href='PurchaseOrderList.php';</script>");
+              echo ("<script>location.href='PurchaseOrderMainList.php';</script>");
             }
             else
             {
@@ -77,7 +77,7 @@
            
             while ($data=mysqli_fetch_array($exe))
             {
-              print_r($exe);
+              //print_r($exe);
             ?>
               
               <form role="form" action="" method="post" enctype="multipart/form-data">
@@ -156,6 +156,11 @@
 <?php include "footer.php";?>
 <script type="text/javascript">
 		$(document).ready(function() {
+
+      $('#tanggal_pembayaran').datepicker({
+                autoclose: true
+            });
+
       if ($("#tipe_pembayaran").val() == 1)
       {
         $("#columnTanggalPembayaran").addClass('hide');

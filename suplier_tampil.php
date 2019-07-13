@@ -35,6 +35,7 @@
          <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
+                  <th>Lihat Detail Hutang</th>
                   <th>Nama Suplier</th>
                   <th>Nama BANK</th>
                   <th>No Rekening</th>
@@ -53,6 +54,7 @@
           
 				?>
                 <tr>
+                  <td> <a class="btn btn-warning" href="HistoryHutang.php?id=<?php echo $data['id_suplier'];?>"> <span class="glyphicon glyphicon-pencil"></span> Detail Hutang</a></td>
                   <td><?php echo $data['nama_suplier'];?></td>
                   <td><?php echo $data['bank'];?></td>
                   <td><?php echo $data['no_rekening'];?></td>

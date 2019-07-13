@@ -17,16 +17,18 @@
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"> -->
+  <link rel="stylesheet" href="/admin/plugins/fontawesome/css/fontawesome.min.css">
+  
   <!-- Ionicons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="plugins/select2/select2.min.css">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"> -->
+    <link rel="stylesheet" href="/admin/plugins/select2/select2.min.css">
   <!-- Sugestt -->
 
    
    <!-- Data Table -->
     <link rel="stylesheet" href="/admin/plugins/datatables/dataTables.bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css"> -->
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -36,8 +38,8 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- bootstrap datepicker -->
   <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
+  <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
+  <link rel="stylesheet" href="/admin/plugins/jQueryUI/jquery-ui.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -125,12 +127,6 @@
           //     var_dump($konekquer);
             while($dat=mysqli_fetch_array($exe_not)){
               $nama=$dat['nama'];
-
-          
-        
-
-						
-							
 					?>
                       <i class="fa fa-users text-aqua"></i><?php
 					  echo"Stok $nama kurang dari $ab <br>";?>
@@ -223,10 +219,57 @@
               <span class="label label-primary pull-right">3</span>
             </span>
           </a>
-		  
           <ul class="treeview-menu">
-            <li><a href="purchaseorderlist.php"><i class="fa fa-circle-o"></i>Daftar Purchase Order</a></li>
-            <li><a href="purchaseorder.php"><i class="fa fa-circle-o"></i>Tambah Purchase Order</a></li>
+            <li><a href="purchaseordermainlist.php"><i class="fa fa-circle-o"></i>Daftar Purchase Order</a></li>
+            <li><a href="purchaseordermaincreate.php"><i class="fa fa-circle-o"></i>Tambah Purchase Order</a></li>
+          </ul>
+        </li>
+		<?php } ?>
+    <?php $jabatan=$_SESSION['level']?>
+		<?php if ($jabatan=='Super Super Admin' or $jabatan=='Super Admin' or $jabatan=='Stok Admin') { ?>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-files-o"></i>
+            <span>Data Penerimaan Barang</span>
+            <span class="pull-right-container">
+              <span class="label label-primary pull-right">3</span>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="receivingmainlist.php"><i class="fa fa-circle-o"></i>Daftar Penerimaan Barang</a></li>
+            <li><a href="receivingmaincreate.php"><i class="fa fa-circle-o"></i>Tambah Penerimaan Barang</a></li>
+          </ul>
+        </li>
+		<?php } ?>
+    <?php $jabatan=$_SESSION['level']?>
+		<?php if ($jabatan=='Super Super Admin' or $jabatan=='Super Admin' or $jabatan=='Stok Admin') { ?>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-files-o"></i>
+            <span>Data Permintaan Barang</span>
+            <span class="pull-right-container">
+              <span class="label label-primary pull-right">3</span>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="SalesOrderMainList.php"><i class="fa fa-circle-o"></i>Daftar Permintaan Barang</a></li>
+            <li><a href="SalesOrderMainCreate.php"><i class="fa fa-circle-o"></i>Tambah Permintaan Barang</a></li>
+          </ul>
+        </li>
+		<?php } ?>
+    <?php $jabatan=$_SESSION['level']?>
+		<?php if ($jabatan=='Super Super Admin' or $jabatan=='Super Admin' or $jabatan=='Stok Admin') { ?>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-files-o"></i>
+            <span>Data Penjualan Barang</span>
+            <span class="pull-right-container">
+              <span class="label label-primary pull-right">3</span>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="DeliveryOrderMainList.php"><i class="fa fa-circle-o"></i>Daftar Penjualan Barang</a></li>
+            <li><a href="DeliveryOrderMainCreate.php"><i class="fa fa-circle-o"></i>Tambah Penjualan Barang</a></li>
           </ul>
         </li>
 		<?php } ?>
@@ -261,7 +304,7 @@
 		 <?php $jabatan=$_SESSION['level']?> 
 		 <?php if ($jabatan=='Super Super Admin' or $jabatan=='Super Admin' or $jabatan=='Stok Admin'){
 		?>
-		  <li class="treeview">
+		  <!-- <li class="treeview">
 		<a href="#">
             <i class="fa fa-files-o"></i>
             <span>Data Barang Toko</span>
@@ -283,7 +326,7 @@
 			
 	
           </ul>
-		  </li> 
+		  </li>  -->
 		  <li class="treeview">
 		<a href="#">
             <i class="fa fa-files-o"></i>
