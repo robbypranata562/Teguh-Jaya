@@ -23,7 +23,73 @@
             <?php
                 if (isset($_POST['simpanmain']))
                 {
-                    $code=$_POST['code'];
+                    $number = NULL;
+                    $select_code_for_po = "Select
+                    Increment + 1 as Increment
+                    From
+                    CodeTransaction
+                    where
+                    1=1
+                    And Prefix = 'SO'
+                    And Year  = ".date('y')."
+                    And Month = ".date('m')."
+                    ";
+                    //die($select_code_for_po);
+                    $exe=mysqli_query($koneksi,$select_code_for_po);
+                    if(mysqli_num_rows($exe) > 0 )
+                    {
+                        while($data=mysqli_fetch_array($exe))
+                        {
+                            $number = $data['Increment'];
+                        }
+
+                        $sql_update_incerement = "
+                        Update CodeTransaction
+                        Set
+                            Increment = ".$number."
+                        Where
+                            1=1
+                            And Prefix = 'SO'
+                            And Year  = ".date('y')."
+                            And Month = ".date('m')."
+                        ";
+                        if ($koneksi->query($sql_update_incerement) === TRUE)
+                        {
+                        }
+                    }
+
+                    if(is_null($number)) 
+                    {
+                        $insert_code_for_po = "Insert Into CodeTransaction
+                        (
+                            Prefix,
+                            Year,
+                            Month,
+                            Increment
+                        )
+                        Values
+                        (
+                            'SO',
+                            ".date('y').",
+                            ".date('m').",
+                            '1'
+                            )";
+                        if($koneksi->query($insert_code_for_po) === TRUE)
+                        {
+                            $number = "1";
+                        }
+                    }
+
+                    $lengthCode = strlen($number);
+                    $lengthCode = 4 - $lengthCode;
+                    $code = "";
+                    for ($i = 1 ; $i <= $lengthCode ; $i++)
+                    {
+                        $code = (string)$code  . "0";
+                    }
+
+                    $code = "SO" . (string)date('y') . (string)date('m') . (string)$code . $number;
+                    //$code=$_POST['code'];
                     $tanggal=$_POST['tanggal'];
                     $customer=$_POST['Pelanggan'];
                     $tipe_pembayaran=$_POST['tipe_pembayaran'];
@@ -104,13 +170,7 @@
                     }
             }
             ?>
-            <form class="form-body" ata-toggle="validator" action="" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label class="form-label">Sales Order Code</label>
-                    <div class="">
-                        <input type="text" class="form-control" name="code" id="code"/>
-                    </div>
-                </div>                
+            <form class="form-body" ata-toggle="validator" action="" method="post" enctype="multipart/form-data">              
                 <div class="form-group">
                     <label for="exampleInputDate">Tangal Order</label>
                     <div class="input-group date">
@@ -169,6 +229,8 @@
                             <input type= "text" id="nama_barang" class="form-control" placeholder="Masukkan Nama Barang"  >
                             <input  type="hidden" name="id_barang" id="id_barang" value="" />
                             <input  type="hidden" name="konversi" id="konversi" value="" />
+                            <input  type="hidden" name="satuanbesar" id="satuanbesar" value="" />
+                            <input  type="hidden" name="satuankecil" id="satuankecil" value="" />
                             <span class="input-group-btn">
                             <button type="submit" class="btn btn-info btn-flat" name="tambah">Tambah</button>
                             </span>
@@ -264,9 +326,40 @@
                         "info": false,
                         "autoWidth": true
                     });
+
+            $("#qty").on('keyup change click', function () {
+                var satuankecil = $("#satuankecil").val();
+                var satuanbesar = $("#satuanbesar").val();
+                var JumlahSatuanKecil = $("#jumlah_satuan_kecil").val();
+                var JumlahSatuanBesar = $("#jumlah_satuan_besar").val();
+                if ($("#satuan_barang").val() == satuankecil)
+                {
+                    
+                    if ( this.value > parseInt( JumlahSatuanKecil ) )
+                    {
+                        alert("Jumlah Barang Tidak Mencukupi Permintaan");
+                        $("#qty").val( JumlahSatuanKecil );
+                    }
+                }
+                else
+                {
+                    if ( this.value > parseInt( JumlahSatuanBesar ) )
+                    {
+                        alert("Jumlah Barang Tidak Mencukupi Permintaan");
+                        $("#qty").val( JumlahSatuanBesar );
+                    }
+                }
+                
+            });
             $("#btnTambahBarang").click(function(e){
+                jumlahSatuanBesar = $("#jumlah_satuan_besar").val();
+                jumlahSatuanKecil = $("#jumlah_satuan_kecil").val();
+                qTy = $("#qty").val();
+                satuanbesar = $("#satuanbesar").val();
+                satuankecil = $("#satuankecil").val();
+                
                 var UnitPrice = "";
-                if ($("#satuan_barang").val() == "Pcs")
+                if ($("#satuan_barang").val() == satuankecil)
                 {
                     UnitPrice = $("#unit_price_satuan_kecil").val()
                 }
@@ -310,7 +403,9 @@
                     $("#nama_barang").val(e.NamaBarang);
                     $("#konversi").val(e.satuankonversi);
                     $("#satuan_barang").append(new Option(e.satuanbesar, e.satuanbesar));
-                    $("#satuan_barang").append(new Option("Pcs", "Pcs"));
+                    $("#satuan_barang").append(new Option(e.satuankecil , e.satuankecil));
+                    $("#satuanbesar").val(e.satuanbesar)
+                    $("#satuankecil").val(e.satuankecil)
                     $("#jumlah_satuan_kecil").val(e.JumlahSatuanKecil)
                     $("#jumlah_satuan_besar").val(e.JumlahSatuanBesar)
                     

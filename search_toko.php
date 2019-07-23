@@ -11,6 +11,7 @@ $k=mysqli_query($koneksi,$cek);
             "label"=>$row['NamaBarang'],
             "satuanbesar"=>$row['SatuanBesar'],
             "satuankonversi"=>$row['SatuanKonversi'],
+            "satuankecil"=>$row['SatuanKecil'],
             "modal"=>$row['Modal']
 			);
     }

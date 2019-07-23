@@ -23,12 +23,10 @@
                     <th>Code</th>
                     <th>Detail</th>
                     <th>Tanggal</th>
-                    <th>Tipe</th>
                     <th>Supplier</th>
                     <th>Biaya Pengiriman</th>
                     <th>BIaya Ekstra</th>
                     <th>Total</th>
-                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -36,8 +34,7 @@
 					$sql="
                     SELECT
                         a.`Code`,
-                        a.Date,
-                        a.Type,
+                        Date(a.Date) Date,
                         b.nama_suplier,
                         a.CostDelivery,
                         a.CostExtra,
@@ -45,29 +42,28 @@
                         a.Id
                     FROM
                         receiving AS a
-                    LEFT JOIN suplier AS b ON a.Supplier = b.id_suplier";
-					$exe=mysqli_query($koneksi,$sql);
-                    while($data=mysqli_fetch_array($exe))
+                    LEFT JOIN suplier AS b ON a.Supplier = b.id_suplier
+                    Order By Date Desc";
+                    $k=mysqli_query($koneksi,$sql);
+                    if(mysqli_num_rows($k) > 0 )
                     {
+                      while($data=mysqli_fetch_array($k))
+                        {
                         $BiayaPengiriman ="Rp. ".number_format($data['CostDelivery'],'0',',','.')."-";
                         $BiayaEkstra ="Rp. ".number_format($data['CostExtra'],'0',',','.')."-";
                         $Total ="Rp. ".number_format($data['Total'],'0',',','.')."-";
-				        ?>
+                    ?>
                         <tr>
                             <td><?php echo $data['Code'];?></td>
-                            <td><a href="PurchaseOrderDetailList.php?id=<?php echo $data['Id'];?>">Detail</a></td>
+                            <td><a href="ReceivingDetailList.php?id=<?php echo $data['Id'];?>">Detail</a></td>
                             <td><?php echo $data['Date'];?></td>
-                            <td><?php echo $data['Type'];?></td>
                             <td><?php echo $data['nama_suplier'];?></td>
-                            <td><?php echo $data['CostDelivery'];?></td>
-                            <td><?php echo $data['CostExtra'];?></td>
+                            <td><?php echo $BiayaPengiriman;?></td>
+                            <td><?php echo $BiayaEkstra;?></td>
                             <td><?php echo $Total;?></td>
-                            <td>
-                                <a class="btn btn-warning" href="PurchaseOrderMainEdit.php?id=<?php echo $data['Id'];?>"> <span class="glyphicon glyphicon-pencil"></span> Edit</a>
-                                <a class="btn btn-danger" onclick="if (confirm('Apakah anda yakin ingin menghapus data ini ?')){ location.href='PurchaseOrderDelete.php?id=<?php echo $data['Id']; ?>' }"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
-                            </td>
                         </tr>
-            <?php   } ?>
+            <?php     }
+                    } ?>
               </table>
         </div>
       </div>

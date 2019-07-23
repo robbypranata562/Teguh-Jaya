@@ -39,10 +39,7 @@
                   <th>Nama Suplier</th>
                   <th>Nama BANK</th>
                   <th>No Rekening</th>
-                  <th>Hutang</th>
-                  <th>Tempo</th>
-                 
-				  <th>Action</th>
+				          <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -58,34 +55,19 @@
                   <td><?php echo $data['nama_suplier'];?></td>
                   <td><?php echo $data['bank'];?></td>
                   <td><?php echo $data['no_rekening'];?></td>
-                  
-                  <td><?php echo $hutang;?></td>
-                  
-				  <td><?php echo $data['tempo'];?></td>
-				  <td>
-				 <a class="btn btn-warning" href="suplier_ubah.php?id=<?php echo $data['id_suplier'];?>"> <span class="glyphicon glyphicon-pencil"></span> Edit</a>
-				 
-				 <a class="btn btn-danger" onclick="if (confirm('Apakah anda yakin ingin menghapus data ini ?')){ location.href='suplier_hapus.php?id=<?php echo $data['id_suplier']; ?>' }"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
-				  
-				  </td>
+                  <td>
+                  <a class="btn btn-warning" href="suplier_ubah.php?id=<?php echo $data['id_suplier'];?>"> <span class="glyphicon glyphicon-pencil"></span> Edit</a>
+                  <a class="btn btn-danger" onclick="if (confirm('Apakah anda yakin ingin menghapus data ini ?')){ location.href='suplier_hapus.php?id=<?php echo $data['id_suplier']; ?>' }"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
+                  </td>
                 </tr>
 					<?php } ?>
                 
                 
               </table>
         </div>
-		
-        <!-- /.box-body -->
-     
-        <!-- /.box-footer-->
       </div>
-      <!-- /.box -->
-
     </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
-  
 <?php include "footer.php";?>
  
  

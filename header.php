@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Teguh Jaya</title>
+  <title class="no-print">Teguh Jaya</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -40,6 +40,7 @@
   <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
   <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
   <link rel="stylesheet" href="/admin/plugins/jQueryUI/jquery-ui.css">
+  <link rel="stylesheet" href="/admin/plugins/custom.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -214,7 +215,7 @@
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
-            <span>Data Pembelian Barang</span>
+            <span>Pembelian Barang</span>
             <span class="pull-right-container">
               <span class="label label-primary pull-right">3</span>
             </span>
@@ -230,7 +231,7 @@
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
-            <span>Data Penerimaan Barang</span>
+            <span>Penerimaan Barang</span>
             <span class="pull-right-container">
               <span class="label label-primary pull-right">3</span>
             </span>
@@ -241,12 +242,27 @@
           </ul>
         </li>
 		<?php } ?>
+    <?php if ($jabatan=='Super Super Admin' or $jabatan=='Super Admin' or $jabatan=='Stok Admin') { ?>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-files-o"></i>
+            <span>Retur Pembelian</span>
+            <span class="pull-right-container">
+              <span class="label label-primary pull-right">3</span>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="PurchaseReturnMainList.php"><i class="fa fa-circle-o"></i>Daftar Retur Pembelian</a></li>
+            <li><a href="PurchaseReturnMainCreate.php"><i class="fa fa-circle-o"></i>Tambah Retur Pembelian</a></li>
+          </ul>
+        </li>
+		<?php } ?>
     <?php $jabatan=$_SESSION['level']?>
 		<?php if ($jabatan=='Super Super Admin' or $jabatan=='Super Admin' or $jabatan=='Stok Admin') { ?>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
-            <span>Data Permintaan Barang</span>
+            <span>Permintaan Barang</span>
             <span class="pull-right-container">
               <span class="label label-primary pull-right">3</span>
             </span>
@@ -257,12 +273,13 @@
           </ul>
         </li>
 		<?php } ?>
+
     <?php $jabatan=$_SESSION['level']?>
 		<?php if ($jabatan=='Super Super Admin' or $jabatan=='Super Admin' or $jabatan=='Stok Admin') { ?>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
-            <span>Data Penjualan Barang</span>
+            <span>Penjualan Barang</span>
             <span class="pull-right-container">
               <span class="label label-primary pull-right">3</span>
             </span>
@@ -270,6 +287,76 @@
           <ul class="treeview-menu">
             <li><a href="DeliveryOrderMainList.php"><i class="fa fa-circle-o"></i>Daftar Penjualan Barang</a></li>
             <li><a href="DeliveryOrderMainCreate.php"><i class="fa fa-circle-o"></i>Tambah Penjualan Barang</a></li>
+          </ul>
+        </li>
+		<?php } ?>
+
+    <?php $jabatan=$_SESSION['level']?>
+		<?php if ($jabatan=='Super Super Admin' or $jabatan=='Super Admin' or $jabatan=='Stok Admin') { ?>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-files-o"></i>
+            <span>Return Penjualan</span>
+            <span class="pull-right-container">
+              <span class="label label-primary pull-right">3</span>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="SalesReturnMainList.php"><i class="fa fa-circle-o"></i>Daftar Retur Barang</a></li>
+            <li><a href="DeliveryOrderMainCreate.php"><i class="fa fa-circle-o"></i>Tambah Penjualan Barang</a></li>
+          </ul>
+        </li>
+		<?php } ?>
+
+    <?php $jabatan=$_SESSION['level']?>
+		<?php if ($jabatan=='Super Super Admin' or $jabatan=='Super Admin' or $jabatan=='Stok Admin') { ?>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-files-o"></i>
+            <span> Incident Report </span>
+            <span class="pull-right-container">
+              <span class="label label-primary pull-right">3</span>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="IncidentReportMainList.php"><i class="fa fa-circle-o"></i>Daftar Incident</a></li>
+            <li><a href="IncidentReportMainCreate.php"><i class="fa fa-circle-o"></i>Tambah Incident</a></li>
+          </ul>
+        </li>
+		<?php } ?>
+
+    <?php $jabatan=$_SESSION['level']?>
+		<?php if ($jabatan=='Super Super Admin' or $jabatan=='Super Admin' or $jabatan=='Stok Admin') { ?>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-files-o"></i>
+            <span>Hutang</span>
+            <span class="pull-right-container">
+              <span class="label label-primary pull-right">1</span>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="ListAccountReceiveable.php"><i class="fa fa-circle-o"></i>Hutang</a></li>
+          </ul>
+          <ul class="treeview-menu">
+            <li><a href="PaymentAccountReceiveable.php"><i class="fa fa-circle-o"></i>Pembayaran Hutang</a></li>
+          </ul>
+        </li>
+		<?php } ?>
+
+
+    <?php $jabatan=$_SESSION['level']?>
+		<?php if ($jabatan=='Super Super Admin' or $jabatan=='Super Admin' or $jabatan=='Stok Admin') { ?>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-files-o"></i>
+            <span>Piutang</span>
+            <span class="pull-right-container">
+              <span class="label label-primary pull-right">1</span>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="ListAccountPayable.php"><i class="fa fa-circle-o"></i>Piutang</a></li>
           </ul>
         </li>
 		<?php } ?>
@@ -287,6 +374,8 @@
           <ul class="treeview-menu">
             <li><a href="tampil_barang.php"><i class="fa fa-circle-o"></i> Stok Barang</a></li>
             <li><a href="tbh_barang.php"><i class="fa fa-circle-o"></i> Tambah Barang</a></li>
+            <li><a href="ListItemMostPopular.php"><i class="fa fa-circle-o"></i> Barang Laku</a></li>
+            <li><a href="ListItemAging.php"><i class="fa fa-circle-o"></i> Umur Barang</a></li>
 		<?php } ?>
 			<?php $jabatan=$_SESSION['level']?> 
 			<?php if ($jabatan=='Super Super Admin' or $jabatan=='Super Admin') { ?>

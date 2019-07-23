@@ -2,7 +2,7 @@
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        History Penjualan
+        Barang Laku
       </h1>
     </section>
     <section class="content">
@@ -44,16 +44,8 @@
           <table id="THistory" class="table table-bordered table-striped" cellspacing="0" width="100%">
             <thead>
               <tr>
-                <th>No Faktur</th>
-                <th>Tanggal</th>
                 <th>Nama Pelanggan</th>
-                <th>Nama Barang</th>
-                <th>Qty</th>
-                <th>Harga Modal</th>
-                <th>Harga Jual</th>
-                <th>Total Modal</th>
-                <th>Total Pendapatan</th>
-                <th>Bersih</th>
+                <th>Total Penjualan ( Dalam Satuan Kecil )</th>
               </tr>
             </thead>
           </table>
@@ -76,15 +68,15 @@
    });
 
 		$('#THistory').dataTable( {
-			"bProcessing": true,
+	    "bProcessing": true,
       "serverSide": true,
       "scrollX": true,
+      "order": [[ 1, "desc" ]],
       "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-        console.log(aData)
         return nRow;
       },
       "ajax": {
-                "url": "search_total_transaction_by_date.php",
+                "url": "search_item_most_popular.php",
                 "type": "POST",
                 "data": function (d) {
                     d.StartDate = $("#StartDate").val(),

@@ -42,25 +42,48 @@
           <?php
           $supplier_id = $_GET['id'];
           $sql="SELECT
-          b.nama_suplier,
-          Date(a.date) as Tanggal,
-          a.total as Credit,
-          0 as Debit
-          FROM
-          ar AS a
-          LEFT JOIN suplier AS b ON a.supplier_id = b.id_suplier
-          where id_suplier = ".$supplier_id."";
+          HistoryAR.nama_suplier,
+          HistoryAR.Tanggal,
+          sum(HistoryAR.Credit) AS Credit,
+          sum(HistoryAR.Debit) AS Debit
+        FROM
+          (
+            SELECT
+              b.nama_suplier,
+              Date(a.date) AS Tanggal,
+              a.total AS Credit,
+              0 AS Debit
+            FROM
+              ar AS a
+            LEFT JOIN suplier AS b ON a.supplier_id = b.id_suplier
+            WHERE
+            id_suplier = ".$supplier_id."
+            UNION ALL
+              SELECT
+                b.nama_suplier,
+                Date(a.date) AS Tanggal,
+                0 AS Credit,
+                a.total AS Debit
+              FROM
+                arpayment AS a
+              LEFT JOIN suplier AS b ON a.supplier_id = b.id_suplier
+              WHERE
+                id_suplier = ".$supplier_id."
+          ) HistoryAR
+        GROUP BY
+          HistoryAR.nama_suplier,
+          HistoryAR.Tanggal";
           $exe=mysqli_query($koneksi,$sql);
           while($data=mysqli_fetch_array($exe))
-          
           {
             $TotalCredit ="Rp. ".number_format($data['Credit'],'0',',','.')."-";
+            $TotalDebit ="Rp. ".number_format($data['Debit'],'0',',','.')."-";
             ?>
            <tr>
             <td><?php echo $data['nama_suplier'];?></td>
             <td><?php echo $data['Tanggal'];?></td>
             <td><?php echo $TotalCredit;?></td>
-            <td><?php echo $data['Debit'];?></td>
+            <td><?php echo $TotalDebit;?></td>
             </tr>
             <?php } ?>
           </table>

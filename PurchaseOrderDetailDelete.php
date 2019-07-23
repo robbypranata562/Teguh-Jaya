@@ -15,7 +15,7 @@ if($koneksi->query($sql) === TRUE)
         //$exe_purchase_order_main = mysqli_query($koneksi,$sql_update_po);
         if($koneksi->query($sql_update_po) === TRUE)
         {
-            header("location:PurchaseOrderList.php");
+            header("location:PurchaseOrderMainList.php");
         }
     }
     

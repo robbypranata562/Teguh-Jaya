@@ -2,7 +2,7 @@
     <div class="pull-right hidden-xs">
      
     </div>
-    <strong>Copyright &copy; 2016 <a href="teguhjaya.org">TEGUH JAYA</a>.</strong> All rights
+    <strong>Copyright &copy; 2019 </strong> All rights
     reserved.
   </footer>
 

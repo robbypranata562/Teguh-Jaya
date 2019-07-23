@@ -93,9 +93,9 @@
               <th>Harga Bawah</th>
               <th>Harga Atas</th>
             <?php } ?>
-              <th>Stok</th>
+              <th>Jumlah Satuan Besar</th>
               <th>Konversi</th>
-              <th>Konversi Stok Ke Satuan</th>
+              <th>Jumlah Satuan Kecil</th>
               <th>Min Stok</th>
             <?php if ($jabatan=='Super Admin'or $jabatan=='Super Super Admin' or $jabatan=='Stok Admin'){ ?>
               <th>Action</th>
@@ -115,7 +115,7 @@
           item.SatuanKonversi,
           item.JumlahSatuanKecil,
           item.MinStock,
-
+          item.JumlahSatuanBesar,
           item.id
         FROM
           item";
@@ -123,16 +123,8 @@
           while($data=mysqli_fetch_array($exe))
           {
 
-            if ($data['JumlahSatuanKecil'] >= $data["SatuanKonversi"])
-            {
-                $lusin = round($data['JumlahSatuanKecil'] / $data["SatuanKonversi"],0,PHP_ROUND_HALF_DOWN);
-                $pcs = $data['JumlahSatuanKecil'] % $data["SatuanKonversi"];
-                $StokLargeUnit = $lusin . " Lusin " . " - " . $pcs . " Pcs";
-            }
-            else
-            {
-              $StokLargeUnit = $data['JumlahSatuanKecil'] . " Pcs";
-            }
+            $StokLargeUnit = $data['JumlahSatuanBesar'];
+            $StokSmallUnit = $data['JumlahSatuanKecil'];
 
             if ($data['JumlahSatuanKecil'] <= $data['MinStock'])
             {
@@ -168,7 +160,7 @@
             <td><?php echo $StokLargeUnit; ?></td>
             <td><?php echo   $data["SatuanKonversi"]; ?></td>
           
-            <td><?php echo $data['JumlahSatuanKecil'];?></td>
+            <td><?php echo $StokSmallUnit;?></td>
             <td><?php echo $data['MinStock'];?></td>
             <?php if ($jabatan=='Super Admin' or $jabatan=='Super Super Admin' or $jabatan=='Stok Admin'){
             ?>

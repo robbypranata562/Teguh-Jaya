@@ -50,7 +50,9 @@
                     LEFT JOIN suplier AS b ON a.Supplier = b.id_suplier
                     where 
                     1=1
-                    and a.status = 1";
+                    and a.status = 1
+                    Order By a.Code"
+                    ;
                     // LIMIT ".$limit." OFFSET ".$offset."";
 					          $exe=mysqli_query($koneksi,$sql);
                     while($data=mysqli_fetch_array($exe))
@@ -67,7 +69,7 @@
                             <td><?php echo $Total;?></td>
                             <td>
                                 <a class="btn btn-warning" href="PurchaseOrderMainEdit.php?id=<?php echo $data['Id'];?>"> <span class="glyphicon glyphicon-pencil"></span> Edit</a>
-                                <a class="btn btn-danger" onclick="if (confirm('Apakah anda yakin ingin menghapus data ini ?')){ location.href='PurchaseOrderDelete.php?id=<?php echo $data['Id']; ?>' }"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
+                                <a class="btn btn-danger" onclick="if (confirm('Apakah anda yakin ingin menghapus data ini ?')){ location.href='PurchaseOrderMainDelete.php?id=<?php echo $data['Id']; ?>' }"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
                             </td>
                         </tr>
             <?php   } ?>

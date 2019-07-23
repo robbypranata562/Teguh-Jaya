@@ -132,7 +132,7 @@
                         <div class>
                             <select class="form-control select2"   style="width: 100%;" name="satuan_barang" id="satuan_barang">
                             <?php
-                                $sql_uom="SELECT SatuanBesar FROM Item where Id =  '".$data['ItemId']."'";
+                                $sql_uom="SELECT SatuanBesar , SatuanKecil FROM Item where Id =  '".$data['ItemId']."'";
                                 // print_r($sql_uom);
                                 $exe_uom=mysqli_query($koneksi,$sql_uom);
                                 while($data_uom = mysqli_fetch_array($exe_uom))
@@ -140,10 +140,10 @@
                                 ?>
                                     <?php if ($data['Satuan'] == $data_uom['SatuanBesar']){?>
                                             <option value=<?php echo $data_uom['SatuanBesar'];?> selected><?php echo $data_uom['SatuanBesar'];?></option>
-                                            <option value="Pcs">Pcs</option>
+                                            <option value=<?php echo $data_uom['SatuanKecil'];?>><?php echo $data_uom['SatuanKecil'];?></option>
                                     <?php } else { ?>
                                             <option value=<?php echo $data_uom['SatuanBesar'];?>><?php echo $data_uom['SatuanBesar'];?></option>
-                                            <option value="Pcs" selected>Pcs</option>
+                                            <option value=<?php echo $data_uom['SatuanKecil'];?> selected><?php echo $data_uom['SatuanKecil'];?></option>
                                     <?php } ?>
                                 <?php 
                                 } 
@@ -202,7 +202,7 @@
                     $("#nama_barang").val(e.NamaBarang);
                     $("#konversi").val(e.satuankonversi);
                     $("#satuan_barang").append(new Option(e.satuanbesar, e.satuanbesar));
-                    $("#satuan_barang").append(new Option("Pcs", "Pcs"));
+                    $("#satuan_barang").append(new Option(e.satuankecil, e.satuankecil));
                     $("#unit_price_satuan_kecil").val(e.modal);
                     $("#unit_price_satuan_besar").val(e.modal * e.satuankonversi),
                     console.log(ui.item)
