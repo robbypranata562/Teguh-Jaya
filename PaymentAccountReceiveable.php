@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="box-body">
-		<?php 
+		<?php
         if (isset($_POST['simpan']))
         {
             $suplier = $_POST["suplier_name"];
@@ -38,7 +38,7 @@
                 '".$suplier."',
                 '".$tanggal."',
                 '".$TotalPR."',
-                '".$Session."', 
+                '".$Session."',
                 NOW()
             )";
             if ($koneksi->query($insert_ar_payment) === TRUE)
@@ -53,7 +53,6 @@
                         <label class = "form-label"> Suplier </label>
                         <div class>
                         <select class="form-control" style="width: 100%;" name="suplier_name" id="suplier_name">
-                        <option value="">Pilih Supplier:</option>
                                 <?php
                                     $sql="SELECT id_suplier , nama_suplier FROM Suplier";
                                     $exe=mysqli_query($koneksi,$sql);
@@ -61,18 +60,12 @@
                                     {
                                     ?>
                                         <option value=<?php echo $data['id_suplier'];?>><?php echo $data['nama_suplier'];?></option>
-                                    <?php 
-                                    } 
+                                    <?php
+                                    }
                                     ?>
                         </select>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Sisa Hutang</label>
-                        <div class="">
-                            <input type="text" class="form-control" name="SisaHutang" id="SisaHutang" readonly/>
-                        </div>
-                    </div>  
                     <div class="form-group">
                         <label for="exampleInputDate">Tanggal Pembayaran</label>
                         <div class="input-group date">
@@ -88,7 +81,7 @@
                         <div class="">
                             <input type="text" class="form-control" name="pembayaran" id="pembayaran"/>
                         </div>
-                    </div>  
+                    </div>
                     <div class="box-footer">
                     <input type="submit" name="simpan" class="btn btn-primary" value="Simpan">
                 </div>
@@ -102,24 +95,7 @@
 <script type="text/javascript">
 		$( document ).ready(function() {
       $('#tanggal').datepicker({
-        autoclose: true
-      });
-      $( "#suplier_name" ).on('change',function(){
-        $.ajax({
-                url: 'search_AR_By_Supplier.php',
-                type: 'POST',
-                dataType: "json",
-                data:
-                {
-                  supplier_id: this.value
-                }
-            }).success(function(data){
-              $("#SisaHutang").val(data[0]['SisaHutang']);
-            }).error(function(data){
-                
+                autoclose: true
             });
-        });
     })
 </script>
- 
- 

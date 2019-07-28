@@ -9,7 +9,7 @@
 
     <!-- Main content -->
     <section class="content">
-	
+
       <!-- Default box -->
       <div class="box">
 	 <?php $jabatan=$_SESSION['level']?>
@@ -24,10 +24,10 @@
               <i class="fa fa-times"></i></button>
           </div>
         </div>
-		
+
         <div class="box-body">
           <table id="titemhistory" class="table table-bordered table-striped">
-          <?php $jabatan=$_SESSION['level']?>  
+          <?php $jabatan=$_SESSION['level']?>
 
           <thead>
           <tr>
@@ -47,9 +47,7 @@
           main.NamaBarang,
           sum(main.Income) Income,
           sum(main.Outcome) Outcome,
-          (
-            sum(main.Income) - sum(main.Outcome)
-          ) AS Result
+          (sum(main.Income) - sum(main.Outcome)) AS Result
         FROM
           (
             SELECT
@@ -70,51 +68,23 @@
             a.ItemId = '".$item_id."'
           UNION
             SELECT
-              Date(a.Date) AS Tanggal,
+              Date(c.Date) AS Tanggal,
               b.NamaBarang,
-              a.NewQty - LastQty AS Income,
-              0 AS Outcome
+              0 AS Income,
+              CASE
+            WHEN a.UOM = 'Pcs' THEN
+              a.DeliveryQty
+            ELSE
+              a.DeliveryQty * a.Konversi
+            END AS Outcome
             FROM
-              adjustment a
+              deliveryorderdetail a
             LEFT JOIN item b ON a.ItemId = b.id
+            LEFT JOIN deliveryorder c ON a.DeliveryId = c.Id
             WHERE
-              1 = 1
-            AND Operation = '+'
-            AND a.ItemId = '".$item_id."'
-            UNION
-              SELECT
-                Date(c.Date) AS Tanggal,
-                b.NamaBarang,
-                0 AS Income,
-                CASE
-              WHEN a.UOM = 'Pcs' THEN
-                a.DeliveryQty
-              ELSE
-                a.DeliveryQty * a.Konversi
-              END AS Outcome
-              FROM
-                deliveryorderdetail a
-              LEFT JOIN item b ON a.ItemId = b.id
-              LEFT JOIN deliveryorder c ON a.DeliveryId = c.Id
-              WHERE
-                a.ItemId = '".$item_id."'
-              UNION
-                SELECT
-                  Date(a.Date) AS Tanggal,
-                  b.NamaBarang,
-                  0 AS Income,
-                  a.LastQty - a.NewQty AS Outcome
-                FROM
-                  adjustment a
-                LEFT JOIN item b ON a.ItemId = b.id
-                WHERE
-                  1 = 1
-                AND Operation = '-'
-                AND a.ItemId = '".$item_id."'
+            a.ItemId = '".$item_id."'
           ) main
-        GROUP BY
-          main.Tanggal,
-          main.NamaBarang";
+        GROUP BY main.Tanggal,main.NamaBarang";
           $exe=mysqli_query($koneksi,$sql);
           while($data=mysqli_fetch_array($exe))
           {
@@ -129,9 +99,9 @@
             <?php } ?>
           </table>
         </div>
-		
+
         <!-- /.box-body -->
-    
+
         <!-- /.box-footer-->
       </div>
       <!-- /.box -->
@@ -140,7 +110,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  
+
 <?php include "footer.php";?>
 
 <script>
@@ -154,5 +124,3 @@
         "scrollX": true
     });
 </script>
- 
- 

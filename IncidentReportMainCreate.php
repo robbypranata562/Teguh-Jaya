@@ -116,7 +116,7 @@
                         NOW()
                     )";
                     //$exe_purchase_order_main = mysqli_query($koneksi,$sql_purchase_order_main);
-                    //print_r($Items);
+
                     if($koneksi->query($sql_purchase_order_main) === TRUE)
                     {
                         //jika sukses ambil id terus insert purchase order detail
@@ -125,20 +125,18 @@
                         foreach ($Items as $key)
                         {
 
-                            // [0] => 10
-                            // [1] => Pot 45 AGR Hitam
-                            // [2] => Pcs
-                            // [3] => 12
-                            // [4] => 2
-                            // [5] => 1
-                            // [6] => 2
-                            // [7] =>
-                            // [8] => Pcs
-                            // [9] => karung
-                            // [10] => 12
+                            // $("#id_barang").val(), 0
+                            // $("#nama_barang").val(), 1
+                            // satuan, 2
+                            // konversi, 3
+                            // qty, 4
+                            // unitprice, 5
+                            // $("#total_price").val(), 6
+                            // $("#deskripsidetails").val(), 7
+                            // $("#satuanbesar").val(), 8
+                            // $("#satuankecil").val() 9
+                            // $("#konversi").val() 10
                             $sql_purchase_order_detail = "";
-                            //print_r($key[2]);
-                            //print_r($key[9]);
                             $sql_purchase_order_detail="insert into IncidentDetail
                             (
                                 IncidentId ,
@@ -163,9 +161,9 @@
                                 NOW())";
                             if ($koneksi->query($sql_purchase_order_detail) === TRUE)
                             {
-                                if ($key[2] == $key[8]) //satuan kecil
+                                if (strtolower($key[2]) == strtolower($key[9])) //satuan kecil
                                 {
-                                    $satuan_besar = $key[4] / $key[10];
+                                    $satuan_besar = $key[10] / $key[4];
                                     $satuan_besar = round($satuan_besar, 0);
                                     $sql_update_stok_item =
 "
@@ -188,9 +186,8 @@
                                     where
                                         id                  = '".$key[0]."'
                                     ";
-
+                                    //echo $sql_update_stok_item;
                                 }
-                                //print_r($sql_update_stok_item);
                                 if ($koneksi->query($sql_update_stok_item) === TRUE)
                                 {
 
@@ -204,7 +201,7 @@
                                         </div>";
                             }
                         }
-                        //echo ("<script>location.href='IncidentReportMainList.php';</script>");
+                        echo ("<script>location.href='IncidentReportMainList.php';</script>");
                     }
                     else
                     {
@@ -341,10 +338,8 @@
 <script type="text/javascript">
 		$( document ).ready(function() {
             var DataItem = [];
-            var currDate = new Date();
             $('#tanggal').datepicker({
-                autoclose: true,
-                startDate: currDate,
+                autoclose: true
             });
             var table =  $('#TablePurchaseReturnDetail').DataTable({
                         "paging": false,
@@ -412,7 +407,6 @@
                     $("#satuan_barang").append(new Option(e.satuankecil, e.satuankecil));
                     $("#satuanbesar").val(e.satuanbesar);
                     $("#satuankecil").val(e.satuankecil);
-                    $("#unit_price").val(e.modal);
 
                 }
             });

@@ -103,9 +103,6 @@
                 Tlp: (0262) 234395<br>
             </address>
         </div>
-        <br>
-                <br>
-                        <br>
         <div class="col-sm-6 invoice-col">
         <address>
                 No Faktur   : <?php echo $noFaktur ?> <br>

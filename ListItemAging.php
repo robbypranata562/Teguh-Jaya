@@ -53,7 +53,7 @@
         }
         return nRow;
     },
-    "ajax": 
+    "ajax":
             {
                 "url": "search_item_aging.php",
                 "type": "POST",
@@ -61,11 +61,9 @@
                 }
             },
     });
-    
+
     $("#btnSearchHistory").on("click",function(){
       $("#THistory").DataTable().draw();
     });
 });
 </script>
- 
- 

@@ -1,4 +1,4 @@
-<?php
+<?php 
     include "header.php";
     include "koneksi.php";
 ?>
@@ -288,10 +288,8 @@
 <script type="text/javascript">
 		$( document ).ready(function() {
             var DataItem = [];
-            var currDate = new Date();
             $('#tanggal').datepicker({
-                autoclose: true,
-                startDate: currDate,
+                autoclose: true
             });
             var table =  $('#TableSalesReturnDetail').DataTable({
                         "paging": false,

@@ -303,7 +303,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="SalesReturnMainList.php"><i class="fa fa-circle-o"></i>Daftar Retur Barang</a></li>
-            <li><a href="SalesReturnMainCreate.php"><i class="fa fa-circle-o"></i>Tambah Penjualan Barang</a></li>
+            <li><a href="DeliveryOrderMainCreate.php"><i class="fa fa-circle-o"></i>Tambah Penjualan Barang</a></li>
           </ul>
         </li>
 		<?php } ?>
@@ -358,9 +358,6 @@
           <ul class="treeview-menu">
             <li><a href="ListAccountPayable.php"><i class="fa fa-circle-o"></i>Piutang</a></li>
           </ul>
-          <ul class="treeview-menu">
-            <li><a href="PaymentAccountPayable.php"><i class="fa fa-circle-o"></i>Pembayaran Piutang</a></li>
-          </ul>
         </li>
 		<?php } ?>
     <?php $jabatan=$_SESSION['level']?>
@@ -378,7 +375,6 @@
             <li><a href="tbh_barang.php"><i class="fa fa-circle-o"></i> Tambah Barang</a></li>
             <li><a href="ListItemMostPopular.php"><i class="fa fa-circle-o"></i> Barang Laku</a></li>
             <li><a href="ListItemAging.php"><i class="fa fa-circle-o"></i> Umur Barang</a></li>
-            <li><a href="AdjustmentItem.php"><i class="fa fa-circle-o"></i> Adjustment</a></li>
 		<?php } ?>
 			<?php $jabatan=$_SESSION['level']?>
 			<?php if ($jabatan=='Super Super Admin' or $jabatan=='Super Admin') { ?>

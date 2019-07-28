@@ -170,7 +170,7 @@
                     }
             }
             ?>
-            <form name="formSalesOrder" id="formSalesOrder" class="form-body" data-toggle="validator" action="" method="post" enctype="multipart/form-data">
+            <form class="form-body" ata-toggle="validator" action="" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="exampleInputDate">Tangal Order</label>
                     <div class="input-group date">
@@ -331,15 +331,6 @@
                           BindClickDelete(row)
                         }
                     });
-
-            function BindClickDelete(row)
-            {
-              $('td:eq(5) input[type="button"]' , row).unbind('click');
-              $('td:eq(5) input[type="button"]' , row).bind('click', function (e) {
-
-                t.api().row( $(this).parents('tr') ).remove().draw();
-              })
-            }
 
             $("#qty").on('keyup change click', function () {
                 var satuankecil = $("#satuankecil").val();

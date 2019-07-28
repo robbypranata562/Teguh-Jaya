@@ -281,10 +281,8 @@
 <script type="text/javascript">
 		$( document ).ready(function() {
             var DataItem = [];
-            var currDate = new Date();
             $('#tanggal').datepicker({
-                autoclose: true,
-                startDate: currDate,
+                autoclose: true
             });
             var table =  $('#TablePurchaseReturnDetail').DataTable({
                         "paging": false,

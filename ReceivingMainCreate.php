@@ -504,15 +504,11 @@
                     var HargaDefault    = $('#TableReceivingDetail tbody tr.row_selected td:eq(13)').html();
 
                     //bandingkan apakah satuanya besar apa kecil
-                    if ( uom == SatuanKecil ) //jika uom adalah satuan kecil
+                    if ( uom.toLowerCase() == SatuanKecil.toLowerCase() ) //jika uom adalah satuan kecil
                     {
                         SmallUnitQty = qty;
-                        BiayaKirim = (parseInt(BiayaKirim) + parseInt(BiayaEkstra)) / parseInt(konversi);
-                        console.log(BiayaKirim)
-                        NewUnitPrice = parseInt(LastUnitPrice) + parseInt(BiayaKirim);
+                        NewUnitPrice = parseInt(LastUnitPrice) + parseInt((BiayaKirim / SmallUnitQty));
                         var KenaikanHarga = financial(NewUnitPrice) - financial(LastUnitPrice)
-                        console.log(LastUnitPrice)
-                        console.log(KenaikanHarga)
                         $('#TableReceivingDetail tbody tr.row_selected td:eq(10)').html( parseInt(HargaAtas) +  parseInt(KenaikanHarga) );
                         $('#TableReceivingDetail tbody tr.row_selected td:eq(11)').html( parseInt(HargaBawah) +  parseInt(KenaikanHarga) );
                         $('#TableReceivingDetail tbody tr.row_selected td:eq(12)').html( parseInt(HargaModal) +  parseInt(KenaikanHarga) );
@@ -529,7 +525,6 @@
                         SmallUnitQty = konversi * qty;
                         NewUnitPrice = parseInt(LastUnitPrice) + parseInt((BiayaKirim / SmallUnitQty));
                         var KenaikanHarga = financial(NewUnitPrice) - financial(LastUnitPrice);
-                        console.log(KenaikanHarga)
                         $('#TableReceivingDetail tbody tr.row_selected td:eq(10)').html( parseInt(HargaAtas) +  parseInt(KenaikanHarga) );
                         $('#TableReceivingDetail tbody tr.row_selected td:eq(11)').html( parseInt(HargaBawah) +  parseInt(KenaikanHarga) );
                         $('#TableReceivingDetail tbody tr.row_selected td:eq(12)').html( parseInt(HargaModal) +  parseInt(KenaikanHarga) );

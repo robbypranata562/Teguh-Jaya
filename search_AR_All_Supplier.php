@@ -1,4 +1,4 @@
-<?php 
+<?php
 include "koneksi.php";
 $iTotal = 0;
 $cek_count="SELECT
@@ -9,7 +9,7 @@ LEFT JOIN ar AS b ON a.id_suplier = b.supplier_id
 GROUP BY
 a.id_suplier";
 $k=mysqli_query($koneksi,$cek_count);
- while ($row = $k->fetch_assoc()) 
+ while ($row = $k->fetch_assoc())
     {
         $iTotal = $row['Count'];
     }
@@ -36,7 +36,7 @@ SELECT
 FROM
 	suplier AS a
 LEFT JOIN ar AS b ON a.id_suplier = b.supplier_id
-GROUP BY a.id_suplier
+
 union ALL
 SELECT
 	a.id_suplier,
@@ -47,15 +47,14 @@ SELECT
 FROM
 	suplier AS a
 LEFT JOIN arpayment AS b ON a.id_suplier = b.supplier_id
-GROUP BY a.id_suplier
 ) ax
-group by ax.nama_suplier
+LEFT join suplier bx on ax.id_suplier = bx.id_suplier
 
 ";
 $k=mysqli_query($koneksi,$cek);
- while ($row = $k->fetch_assoc()) 
+ while ($row = $k->fetch_assoc())
     {
-        
+
         $data = array
             (
                 $row['nama_suplier'],
