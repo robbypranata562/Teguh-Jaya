@@ -45,28 +45,76 @@
           $sql="SELECT
           main.Tanggal,
           main.NamaBarang,
-          main.Income,
-          main.Outcome,
-          (main.Income - main.Outcome) as Result
-          FROM
+          sum(main.Income) Income,
+          sum(main.Outcome) Outcome,
           (
-          SELECT
+            sum(main.Income) - sum(main.Outcome)
+          ) AS Result
+        FROM
+          (
+            SELECT
               Date(c.Date) AS Tanggal,
               b.NamaBarang,
               CASE
-          WHEN a.UOM = 'Pcs' THEN
+            WHEN a.UOM = 'Pcs' THEN
               a.ReceivingQty
-          ELSE
+            ELSE
               a.ReceivingQty * a.Konversi
-          END AS Income,
-          0 as Outcome
+            END AS Income,
+            0 AS Outcome
           FROM
-              receivingdetail a
+            receivingdetail a
           LEFT JOIN item b ON a.ItemId = b.id
           LEFT JOIN receiving c ON a.ReceivingId = c.Id
           WHERE
-              a.ItemId = '".$item_id ."'
-          ) main";
+            a.ItemId = '".$item_id."'
+          UNION
+            SELECT
+              Date(a.Date) AS Tanggal,
+              b.NamaBarang,
+              a.NewQty - LastQty AS Income,
+              0 AS Outcome
+            FROM
+              adjustment a
+            LEFT JOIN item b ON a.ItemId = b.id
+            WHERE
+              1 = 1
+            AND Operation = '+'
+            AND a.ItemId = '".$item_id."'
+            UNION
+              SELECT
+                Date(c.Date) AS Tanggal,
+                b.NamaBarang,
+                0 AS Income,
+                CASE
+              WHEN a.UOM = 'Pcs' THEN
+                a.DeliveryQty
+              ELSE
+                a.DeliveryQty * a.Konversi
+              END AS Outcome
+              FROM
+                deliveryorderdetail a
+              LEFT JOIN item b ON a.ItemId = b.id
+              LEFT JOIN deliveryorder c ON a.DeliveryId = c.Id
+              WHERE
+                a.ItemId = '".$item_id."'
+              UNION
+                SELECT
+                  Date(a.Date) AS Tanggal,
+                  b.NamaBarang,
+                  0 AS Income,
+                  a.LastQty - a.NewQty AS Outcome
+                FROM
+                  adjustment a
+                LEFT JOIN item b ON a.ItemId = b.id
+                WHERE
+                  1 = 1
+                AND Operation = '-'
+                AND a.ItemId = '".$item_id."'
+          ) main
+        GROUP BY
+          main.Tanggal,
+          main.NamaBarang";
           $exe=mysqli_query($koneksi,$sql);
           while($data=mysqli_fetch_array($exe))
           {

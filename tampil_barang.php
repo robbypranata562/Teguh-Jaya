@@ -1,5 +1,5 @@
 <?php include "header.php";?>
- 
+
 
   <!-- =============================================== -->
 
@@ -12,14 +12,14 @@
         <small>admin</small>
       </h1>
 	  <?php
-	  
+
 	  $sql_notif="SELECT * FROM notif where id='1'";
 	  $exe_notif=mysqli_query($koneksi,$sql_notif);
 		while($data_notif=mysqli_fetch_array($exe_notif)){
 		$nilai=$data_notif['jum_minimal'];
 		//echo $nilai;
 		}
-	  
+
     $cek=
         "
         SELECT
@@ -47,17 +47,17 @@
 		// 		$('#pesan_sedia').append("<span class='glyphicon glyphicon-asterisk'></span>");
 		// 	});
 
-		// echo "<div style='padding:5px' class='alert alert-warning'><span class='glyphicon glyphicon-info-sign'></span> Stok  <a style='color:red'>". $data_exe['nama']."</a> yang tersisa sudah kurang dari $nilai . silahkan pesan lagi !!</div>";	
+		// echo "<div style='padding:5px' class='alert alert-warning'><span class='glyphicon glyphicon-info-sign'></span> Stok  <a style='color:red'>". $data_exe['nama']."</a> yang tersisa sudah kurang dari $nilai . silahkan pesan lagi !!</div>";
 		// 	}
 		// }
-		
+
 		?>
-     
+
     </section>
 
     <!-- Main content -->
     <section class="content">
-	
+
       <!-- Default box -->
       <div class="box">
 	 <?php $jabatan=$_SESSION['level']?>
@@ -65,7 +65,7 @@
 
 		<?php if ($jabatan=='Super Admin'or $jabatan=='Super Super Admin' or $jabatan=='Stok Admin'){
 		?>
-		<a href="tbh_barang.php"><h3 class="box-title"><span class="glyphicon glyphicon-plus"></span>Stock Barang</h3></a> 
+		<a href="tbh_barang.php"><h3 class="box-title"><span class="glyphicon glyphicon-plus"></span>Stock Barang</h3></a>
         <?php } ?>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -74,10 +74,10 @@
               <i class="fa fa-times"></i></button>
           </div>
         </div>
-		
+
         <div class="box-body">
           <table id="titem" class="table table-bordered table-striped">
-          <?php $jabatan=$_SESSION['level']?>  
+          <?php $jabatan=$_SESSION['level']?>
 
           <thead>
           <tr>
@@ -93,9 +93,9 @@
               <th>Harga Bawah</th>
               <th>Harga Atas</th>
             <?php } ?>
-              <th>Stok</th>
+              <th>Jumlah Satuan Besar</th>
               <th>Konversi</th>
-              <th>Konversi Stok Ke Satuan</th>
+              <th>Jumlah Satuan Kecil</th>
               <th>Min Stok</th>
             <?php if ($jabatan=='Super Admin'or $jabatan=='Super Super Admin' or $jabatan=='Stok Admin'){ ?>
               <th>Action</th>
@@ -115,7 +115,7 @@
           item.SatuanKonversi,
           item.JumlahSatuanKecil,
           item.MinStock,
-
+          item.JumlahSatuanBesar,
           item.id
         FROM
           item";
@@ -123,31 +123,23 @@
           while($data=mysqli_fetch_array($exe))
           {
 
-            if ($data['JumlahSatuanKecil'] >= $data["SatuanKonversi"])
-            {
-                $lusin = round($data['JumlahSatuanKecil'] / $data["SatuanKonversi"],0,PHP_ROUND_HALF_DOWN);
-                $pcs = $data['JumlahSatuanKecil'] % $data["SatuanKonversi"];
-                $StokLargeUnit = $lusin . " Lusin " . " - " . $pcs . " Pcs";
-            }
-            else
-            {
-              $StokLargeUnit = $data['JumlahSatuanKecil'] . " Pcs";
-            }
+            $StokLargeUnit = $data['JumlahSatuanBesar'];
+            $StokSmallUnit = $data['JumlahSatuanKecil'];
 
             if ($data['JumlahSatuanKecil'] <= $data['MinStock'])
             {
-              $rowclass = "red-row-class"; 
+              $rowclass = "red-row-class";
             }
             else
             {
-              $rowclass = ""; 
+              $rowclass = "";
             }
             //Format uang
             $harga_bawah ="Rp. ".number_format($data['HargaBawah'],'0',',','.');
             $harga_atas = "Rp. ".number_format($data['HargaAtas'],'0',',','.');
             $modal = "Rp. ".number_format($data['Modal'],'0',',','.');
             ?>
-            <?php $jabatan=$_SESSION['level']?> 
+            <?php $jabatan=$_SESSION['level']?>
             <tr class="<?php echo $rowclass; ?>">
             <td><?php echo $data['TanggalMasuk'];?></td>
             <?php if ($jabatan=='Super Admin' or $jabatan=='Super Super Admin' or $jabatan=='Stok Admin'){
@@ -167,23 +159,23 @@
             <?php } ?>
             <td><?php echo $StokLargeUnit; ?></td>
             <td><?php echo   $data["SatuanKonversi"]; ?></td>
-          
-            <td><?php echo $data['JumlahSatuanKecil'];?></td>
+
+            <td><?php echo $StokSmallUnit;?></td>
             <td><?php echo $data['MinStock'];?></td>
             <?php if ($jabatan=='Super Admin' or $jabatan=='Super Super Admin' or $jabatan=='Stok Admin'){
             ?>
             <td>
               <a  class="btn btn-warning" href="edit_barang.php?id=<?php echo $data['id'];?>"> <span class="glyphicon glyphicon-pencil"></span> Edit</a>
-              <a class="btn btn-danger" onclick="if (confirm('Apakah anda yakin ingin menghapus data ini ?')){ location.href='hapus_barang.php?id=<?php echo $data['id']; ?>' }"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
+              <!-- <a class="btn btn-danger" onclick="if (confirm('Apakah anda yakin ingin menghapus data ini ?')){ location.href='hapus_barang.php?id=<?php echo $data['id']; ?>' }"><span class="glyphicon glyphicon-trash"></span> Hapus</a> -->
             </td>
             </tr>
             <?php } ?>
           <?php } ?>
           </table>
         </div>
-		
+
         <!-- /.box-body -->
-    
+
         <!-- /.box-footer-->
       </div>
       <!-- /.box -->
@@ -192,7 +184,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  
+
 <?php include "footer.php";?>
 
 <script>
@@ -200,11 +192,9 @@
         "paging": true,
         "lengthChange": true,
         "searching": true,
-        "ordering": false,
-        "info": false,
-        "autoWidth": true
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
         "scrollX": true
     });
 </script>
- 
- 

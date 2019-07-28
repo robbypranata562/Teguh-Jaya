@@ -11,6 +11,7 @@ salesorder AS a
 WHERE
 1=1
 and a.Id = ".$sales_order_id."";
+// print_r($cek);
 $k=mysqli_query($koneksi,$cek);
  while ($row = $k->fetch_assoc()) 
     {

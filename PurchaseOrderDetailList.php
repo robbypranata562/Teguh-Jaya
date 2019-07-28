@@ -60,7 +60,7 @@
                             <td><?php echo $UnitPrice;?></td>
                             <td><?php echo $Total;?></td>
                             <td>
-                                <a class="btn btn-warning" href="PurchaseOrderDetailEdit.php?id=<?php echo $data['Id'];?>"> <span class="glyphicon glyphicon-pencil"></span> Edit</a>
+                                <!-- <a class="btn btn-warning" href="PurchaseOrderDetailEdit.php?id="> <span class="glyphicon glyphicon-pencil"></span> Edit</a> -->
                                 <a class="btn btn-danger" onclick="if (confirm('Apakah anda yakin ingin menghapus data ini ?')){ location.href='PurchaseOrderDetailDelete.php?id=<?php echo $data['Id']; ?> &PurchaseOrderId=<?php echo $_GET['id']; ?>' }"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
                             </td>
                         </tr>

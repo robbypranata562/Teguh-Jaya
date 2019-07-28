@@ -1,4 +1,4 @@
-<?php 
+<?php
     include "header.php";
     include "koneksi.php";
 ?>
@@ -23,38 +23,37 @@
             <?php
                 if (isset($_POST['simpanmain']))
                 {
-                   
+
                     $Items = json_decode($_POST['arrayItem']);
                     $Session = $_SESSION['nama'];
-                    print_r($Items);
-                    foreach ($Items as $key) 
+                    foreach ($Items as $key)
                     {
                         $sql_Sales_order_detail = "";
                         $sql_Sales_order_detail="insert into SalesOrderDetail
                         (
-                            SalesOrderId , 
-                            ItemId , 
+                            SalesOrderId ,
+                            ItemId ,
                             Qty ,
-                            Satuan , 
-                            Konversi , 
-                            Pembuat , 
+                            Satuan ,
+                            Konversi ,
+                            Pembuat ,
                             Dibuat
-                        ) 
+                        )
                         values
                         (
                             '".$_GET['id']."',
                             '".$key[0]."',
                             '".$key[2]."',
                             '".$key[3]."',
-                            '".$key[4]."' , 
-                            '".$Session."' , 
+                            '".$key[4]."' ,
+                            '".$Session."' ,
                             NOW()
                         )";
                         //$exe_Sales_order_detail = mysqli_query($koneksi,$sql_Sales_order_detail);
                         //print_r($sql_Sales_order_detail);
                         if ($koneksi->query($sql_Sales_order_detail) === TRUE)
                         {
-                            
+
                         }
                         else
                         {
@@ -64,7 +63,7 @@
                                     </div>";
                         }
                     }
-                    //echo ("<script>location.href='SalesOrderDetailList.php';</script>");
+                    echo ("<script>location.href='SalesOrderDetailList.php?id=".$_GET['id']."';</script>");
                 }
             ?>
             <form class="form-body" ata-toggle="validator" action="" method="post" enctype="multipart/form-data">
@@ -84,7 +83,7 @@
                         <label for="">Satuan Barang</label>
                         <div class>
                             <select class="form-control select2"   style="width: 100%;" name="satuan_barang" id="satuan_barang">
-                                
+
                             </select>
                         </div>
                     </div>
@@ -110,7 +109,7 @@
                             <input type="number" class="form-control" name="qty" id="qty"/>
                         </div>
                     </div>
-                </div>              
+                </div>
                 <div class="form-group">
                     <button type="button" class="btn btn-primary" id="btnTambahBarang" name="btnTambahBarang"> Tambah Barang </button>
                 </div>
@@ -150,7 +149,7 @@
             $('#tanggal').datepicker({
                 autoclose: true
             });
-		
+
             $("#tipe_pembayaran").on('change',function(e){
                 if (this.value == 1)
                 {
@@ -161,7 +160,7 @@
                 }
             });
 
-            var t = 
+            var t =
                     $('#TableSalesOrderDetail').DataTable({
                         "paging": false,
                         "lengthChange": false,
@@ -190,7 +189,7 @@
                     UnitPrice,
                     $("#total_price").val()
                 ]).draw( false );
-                DataItem.push([ 
+                DataItem.push([
                         $("#id_barang").val(),
                         $("#nama_barang").val(),
                         $("#qty").val(),
@@ -206,9 +205,9 @@
 
             $( "#nama_barang" ).autocomplete({
                 source: function(request, response) {
-                $.getJSON("search_item_for_sales_order.php", { term : $("#nama_barang").val()}, 
+                $.getJSON("search_item_for_sales_order.php", { term : $("#nama_barang").val()},
                 response)},
-                select: function(event, ui) 
+                select: function(event, ui)
                 {
                     $('#satuan_barang').empty()
                     var e = ui.item;
@@ -219,7 +218,7 @@
                     $("#satuan_barang").append(new Option("Pcs", "Pcs"));
                     $("#jumlah_satuan_kecil").val(e.JumlahSatuanKecil)
                     $("#jumlah_satuan_besar").val(e.JumlahSatuanBesar)
-                    
+
                 }
             });
 		})

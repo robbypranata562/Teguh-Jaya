@@ -11,6 +11,7 @@ $k=mysqli_query($koneksi,$cek);
             "JumlahSatuanBesar"=>$row['JumlahSatuanBesar'],
             "JumlahSatuanKecil"=>$row['JumlahSatuanKecil'],
             "satuanbesar"=>$row['SatuanBesar'],
+            "satuankecil"=>$row['SatuanKecil'],
             "satuankonversi"=>$row['SatuanKonversi']
 			);
     }

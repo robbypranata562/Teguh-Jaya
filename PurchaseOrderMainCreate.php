@@ -23,7 +23,74 @@
             <?php
                 if (isset($_POST['simpanmain']))
                 {
-                    $code=$_POST['code'];
+                    //set Code Transaction
+                    $number = NULL;
+                    $select_code_for_po = "Select
+                    Increment + 1 as Increment
+                    From
+                    CodeTransaction
+                    where
+                    1=1
+                    And Prefix = 'PO'
+                    And Year  = ".date('y')."
+                    And Month = ".date('m')."
+                    ";
+                    //die($select_code_for_po);
+                    $exe=mysqli_query($koneksi,$select_code_for_po);
+                    if(mysqli_num_rows($exe) > 0 )
+                    {
+                        while($data=mysqli_fetch_array($exe))
+                        {
+                            $number = $data['Increment'];
+                        }
+
+                        $sql_update_incerement = "
+                        Update CodeTransaction
+                        Set
+                            Increment = ".$number."
+                        Where
+                            1=1
+                            And Prefix = 'PO'
+                            And Year  = ".date('y')."
+                            And Month = ".date('m')."
+                        ";
+                        if ($koneksi->query($sql_update_incerement) === TRUE)
+                        {
+                        }
+                    }
+
+                    if(is_null($number)) 
+                    {
+                        $insert_code_for_po = "Insert Into CodeTransaction
+                        (
+                            Prefix,
+                            Year,
+                            Month,
+                            Increment
+                        )
+                        Values
+                        (
+                            'PO',
+                            ".date('y').",
+                            ".date('m').",
+                            '1'
+                            )";
+                        if($koneksi->query($insert_code_for_po) === TRUE)
+                        {
+                            $number = "1";
+                        }
+                    }
+
+                    $lengthCode = strlen($number);
+                    $lengthCode = 4 - $lengthCode;
+                    $code = "";
+                    for ($i = 1 ; $i <= $lengthCode ; $i++)
+                    {
+                        $code = (string)$code  . "0";
+                    }
+
+                    $code = "PO" . (string)date('y') . (string)date('m') . (string)$code . $number;
+                    // $code=$_POST['code'];
                     $tanggal=$_POST['tanggal'];
                     $suplier=$_POST['suplier_name'];
                     
@@ -33,8 +100,8 @@
                     $Session = $_SESSION['nama'];
                     //insert purchase order main dulu
                     $sql_purchase_order_main="insert into PurchaseOrder 
-                    (Code , TanggalPembelian , Supplier , Pembayaran , TanggalPembayaran , Pembuat , Dibuat) 
-                    values('".$code."','".$tanggal."','".$suplier."','".$tipe_pembayaran."','".$tanggal_pembayaran."' , '".$Session."' , NOW())";
+                    (Code , TanggalPembelian , Supplier , Pembayaran , TanggalPembayaran , Pembuat , Dibuat , Status) 
+                    values('".$code."','".$tanggal."','".$suplier."','".$tipe_pembayaran."','".$tanggal_pembayaran."' , '".$Session."' , NOW() , 1)";
                     //$exe_purchase_order_main = mysqli_query($koneksi,$sql_purchase_order_main);
                     if($koneksi->query($sql_purchase_order_main) === TRUE)
                     {
@@ -63,10 +130,7 @@
 
                         $sql_update_po = "Update PurchaseOrder Set Total = '".$TotalPO."' where id = '".$last_id."'";
                         $exe_purchase_order_main = mysqli_query($koneksi,$sql_update_po);
-                        echo    "<div class='alert alert-success'>
-                        <a class='close' data-dismiss='alert' href='#'>&times;</a>
-                        <strong>Success!</strong> Data Purchase Order Berhasil Disimpan
-                        </div>";
+                        echo ("<script>location.href='PurchaseOrderMainList.php';</script>");
                     }
                     else
                     {
@@ -78,12 +142,12 @@
             }
             ?>
             <form class="form-body" ata-toggle="validator" action="" method="post" enctype="multipart/form-data">
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label class="form-label">Purchase Order Code</label>
                     <div class="">
                         <input type="text" class="form-control" name="code" id="code"/>
                     </div>
-                </div>                
+                </div>                 -->
                 <div class="form-group">
                     <label for="exampleInputDate">Tangal Order</label>
                     <div class="input-group date">
@@ -187,7 +251,7 @@
                 <div class="form-group">
                     <button type="button" class="btn btn-primary" id="btnTambahBarang" name="btnTambahBarang"> Tambah Barang </button>
                 </div>
-                <input type="textarea" value="" name="arrayItem" id="arrayItem"/>
+                <input type="hidden" value="" name="arrayItem" id="arrayItem"/>
                 <div class="col">
                     <hr style="border-top: 25px solid black;" />
                 </div>
@@ -208,7 +272,6 @@
                 </table>
                 <div class="box-footer">
                     <input type="submit" name="simpanmain" class="btn btn-primary" value="Simpan">
-					<button type="button" class="btn btn-primary" id="btnTambahBarang2" name="btnTambahBarang2"> Test Barang </button>
                 </div>
             </form>
         </div>
@@ -276,7 +339,23 @@
                         $("#total_price").val()
                     ]);
                 $("#arrayItem").val(JSON.stringify(DataItem))
+                clear();
+                $("#nama_barang").focus();
             })
+
+            function clear()
+            {
+
+                    $("#id_barang").val("");
+                    $("#nama_barang").val("");
+                    $("#satuan_barang").val("");
+                    $("#konversi").val("");
+                    $("#qty").val("");
+                    $("#total_price").val("");
+                    $('#satuan_barang').empty();
+                    $("#unit_price_satuan_kecil").val("");
+                    $("#unit_price_satuan_besar").val("");
+            }
 
             $("#btnTambahBarang2").click(function(e){
                 console.log(DataItem)

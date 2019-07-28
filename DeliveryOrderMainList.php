@@ -44,7 +44,7 @@
                     FROM
                         deliveryorder AS a
                         LEFT JOIN pelanggan AS b ON a.Customer = b.id_pelanggan
-                    ORDER BY 
+                    ORDER BY
                         a.Date desc";
 					$exe=mysqli_query($koneksi,$sql);
                     while($data=mysqli_fetch_array($exe))
@@ -61,7 +61,7 @@
                             <td><?php echo $Total;?></td>
                             <td>
                                 <a class="btn btn-warning" href="DeliveryOrderMainEdit.php?id=<?php echo $data['Id'];?>"> <span class="glyphicon glyphicon-pencil"></span> Edit</a>
-                                <a class="btn btn-danger" onclick="if (confirm('Apakah anda yakin ingin menghapus data ini ?')){ location.href='DeliveryOrderDelete.php?id=<?php echo $data['Id']; ?>' }"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
+                                <a class="btn btn-danger" href="DeliveryOrderPrintNew.php?id=<?php echo $data['Id'];?>"> <span class="glyphicon glyphicon-download"></span> Download</a>
                             </td>
                         </tr>
             <?php   } ?>
@@ -81,5 +81,3 @@
         "autoWidth": true
     });
 </script>
- 
- 

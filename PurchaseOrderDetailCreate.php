@@ -41,7 +41,7 @@
                                 $sql_update_po = "Update PurchaseOrder Set Total = '".$data['TotalAmount']."' where id = '".$_GET['id']."'";
                                 $exe_purchase_order_main = mysqli_query($koneksi,$sql_update_po);
                             }
-                            echo ("<script>location.href='PurchaseOrderList.php';</script>");
+                            echo ("<script>location.href='PurchaseOrderMainList.php';</script>");
                         }
                         else
                         {
@@ -120,7 +120,7 @@
                 <div class="form-group">
                     <button type="button" class="btn btn-primary" id="btnTambahBarang" name="btnTambahBarang"> Tambah Barang </button>
                 </div>
-                <input type="textarea" value="" name="arrayItem" id="arrayItem"/>
+                <input type="hidden" value="" name="arrayItem" id="arrayItem"/>
                 <div class="col">
                     <hr style="border-top: 25px solid black;" />
                 </div>

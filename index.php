@@ -123,12 +123,9 @@ else{
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
-       
-        <!-- /.col -->
         <div class="col-xs-4">
           <button type="submit" name="login" class="btn btn-primary btn-block btn-flat">Masuk</button>
         </div>
-        <!-- /.col -->
       </div>
     </form>
 
