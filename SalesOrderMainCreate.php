@@ -327,10 +327,19 @@
                         "ordering": false,
                         "info": false,
                         "autoWidth": true,
-                        "createdRow": function ( row, data, index ) {
-                          BindClickDelete(row)
+                        "createdRow": function ( nRow, data, index ) {
+                          BindClickDelete(nRow)
                         }
                     });
+
+
+            function BindClickDelete(nRow){
+                console.log(nRow)
+                $('td:eq(5) input[type="button"]', nRow).unbind('click');
+                $('td:eq(5) input[type="button"]', nRow).bind('click', function (e) {
+                    t.api().row($(this).parents('tr')).remove().draw( false );
+                })
+            }
 
             $("#qty").on('keyup change click', function () {
                 var satuankecil = $("#satuankecil").val();

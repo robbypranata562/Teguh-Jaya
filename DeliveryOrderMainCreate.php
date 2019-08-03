@@ -448,12 +448,12 @@
 <?php include "footer.php";?>
 <script type="text/javascript">
 		$( document ).ready(function() {
-
+            var currDate = new Date();
             $('#tanggal').datepicker({
                 autoclose: true,
                 startDate: currDate,
                 showButtonPanel: true,
-                 todayBtn: "linked",
+                todayBtn: "linked",
             });
             // var t = $('#TableDeliveryDetail').DataTable({
             //             "paging": false,
