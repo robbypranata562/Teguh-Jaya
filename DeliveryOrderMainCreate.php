@@ -559,16 +559,16 @@
                     var qty = $('#TableDeliveryDetail tbody tr.row_selected td:eq(4) input[type="text"]').val();
 
 
-                    var SatuanBesar     = $('#TableReceivingDetail tbody tr.row_selected td:eq(7)').html();
-                    var SatuanKecil     = $('#TableReceivingDetail tbody tr.row_selected td:eq(9)').html();
+                    var SatuanBesar     = $('#TableDeliveryDetail tbody tr.row_selected td:eq(7)').html();
+                    var SatuanKecil     = $('#TableDeliveryDetail tbody tr.row_selected td:eq(9)').html();
                     var UnitPrice       = 0;
                     var SmallUnitQty    = 0;
                     var NewUnitPrice    = 0;
 
-                    var HargaAtas       = $('#TableReceivingDetail tbody tr.row_selected td:eq(10)').html();
-                    var HargaBawah      = $('#TableReceivingDetail tbody tr.row_selected td:eq(11)').html();
-                    var HargaModal      = $('#TableReceivingDetail tbody tr.row_selected td:eq(12)').html();
-                    var HargaDefault    = $('#TableReceivingDetail tbody tr.row_selected td:eq(13)').html();
+                    var HargaAtas       = $('#TableDeliveryDetail tbody tr.row_selected td:eq(10)').html();
+                    var HargaBawah      = $('#TableDeliveryDetail tbody tr.row_selected td:eq(11)').html();
+                    var HargaModal      = $('#TableDeliveryDetail tbody tr.row_selected td:eq(12)').html();
+                    var HargaDefault    = $('#TableDeliveryDetail tbody tr.row_selected td:eq(13)').html();
                     if (uom  == SatuanKecil)
                     {
                         if (parseInt(qty) > parseInt(jumlahSatuanKecil))
@@ -589,19 +589,19 @@
                 })
             }
             function fn_set_total_price(){
-                var uom = $('#TableDeliveryDetail tbody tr.row_selected td:eq(2)').html();
-                var SatuanBesar     = $('#TableReceivingDetail tbody tr.row_selected td:eq(7)').html();
-                var SatuanKecil     = $('#TableReceivingDetail tbody tr.row_selected td:eq(9)').html();
+                var uom             = $('#TableDeliveryDetail tbody tr.row_selected td:eq(2)').html();
+                var SatuanBesar     = $('#TableDeliveryDetail tbody tr.row_selected td:eq(7)').html();
+                var SatuanKecil     = $('#TableDeliveryDetail tbody tr.row_selected td:eq(9)').html();
                 var qty = $('#TableDeliveryDetail tbody tr.row_selected td:eq(4) input[type="text"]').val();
                 var UnitPrice = $('#TableDeliveryDetail tbody tr.row_selected td:eq(14) input[type="text"]').val();
                 var konversi = $('#TableDeliveryDetail tbody tr.row_selected td:eq(5)').html();
                 if (uom == SatuanKecil)
                     {
-                        var TotalPrice = qty * UnitPrice;
+                        var TotalPrice = parseInt(qty) * parseInt(UnitPrice);
                     }
                     else
                     {
-                        var TotalPrice = qty * (UnitPrice * konversi);
+                        var TotalPrice = parseInt(qty) * (parseInt(UnitPrice) * parseInt(konversi));
                     }
 
                 $('#TableDeliveryDetail tbody tr.row_selected td:eq(15) input[type="text"]').val(TotalPrice);
