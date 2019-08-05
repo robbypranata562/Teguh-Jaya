@@ -170,7 +170,7 @@
                     }
             }
             ?>
-            <form class="form-body" ata-toggle="validator" action="" method="post" enctype="multipart/form-data">
+            <form id="formSalesOrder" name="formSalesOrder" class="form-body" data-toggle="validator" action="" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="exampleInputDate">Tangal Order</label>
                     <div class="input-group date">
