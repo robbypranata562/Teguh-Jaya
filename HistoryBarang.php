@@ -54,7 +54,7 @@
               Date(c.Date) AS Tanggal,
               b.NamaBarang,
               CASE
-            WHEN a.UOM = 'Pcs' THEN
+            WHEN a.UOM = b.SatuanKecil THEN
               a.ReceivingQty
             ELSE
               a.ReceivingQty * a.Konversi
@@ -72,7 +72,7 @@
               b.NamaBarang,
               0 AS Income,
               CASE
-            WHEN a.UOM = 'Pcs' THEN
+            WHEN a.UOM = b.SatuanKecil THEN
               a.DeliveryQty
             ELSE
               a.DeliveryQty * a.Konversi

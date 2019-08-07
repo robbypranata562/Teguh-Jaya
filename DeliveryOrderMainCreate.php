@@ -208,7 +208,7 @@
                                     where
                                     id = '".$key[0]."'
                                     ";
-                                    //echo $sql_update_stok_item;
+                                    
                                 }
                                 else
                                 {
@@ -223,7 +223,8 @@
                                     where
                                     id = '".$key[0]."'";
                                 }
-                                //print_r($sql_update_stok_item);
+                                // print_r($sql_update_stok_item);
+                                // die();
                                 if ($koneksi->query($sql_update_stok_item) === TRUE)
                                 {
                                     $TotalDelivery = $TotalDelivery + $key[15];

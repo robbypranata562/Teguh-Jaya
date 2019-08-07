@@ -40,7 +40,7 @@ d.nama_pelanggan,
 b.NamaBarang,
 -- a.DeliveryQty,
 CASE
-WHEN a.UOM != 'pcs' THEN
+WHEN a.UOM != b.SatuanKecil THEN
 a.DeliveryQty * a.Konversi
 ELSE
 a.DeliveryQty
@@ -48,19 +48,19 @@ END Qty,
 Format(b.Modal,2) AS `HargaModal`,
 Format(a.UnitPrice,2) AS `HargaJual`,
 CASE
-WHEN a.UOM != 'pcs' THEN
+WHEN a.UOM != b.SatuanKecil THEN
 Format((a.DeliveryQty * a.Konversi) * b.Modal,2)
 ELSE
 Format(a.DeliveryQty * b.Modal,2)
 END `TotalModal`,
 CASE
-WHEN a.UOM != 'pcs' THEN
+WHEN a.UOM != b.SatuanKecil THEN
 Format((a.DeliveryQty * a.Konversi) * a.UnitPrice,2)
 ELSE
 Format(a.DeliveryQty * a.UnitPrice,2)
 END `TotalPendapatan`,
 CASE
-WHEN a.UOM != 'pcs' THEN
+WHEN a.UOM != b.SatuanKecil THEN
 Format((
     (a.DeliveryQty * a.Konversi) * a.UnitPrice
 ) - (
