@@ -231,6 +231,9 @@
 <script src="/admin/plugins/select2/select2.full.min.js"></script>
 <script src="/admin/plugins/iCheck/icheck.min.js"></script>
 <script src="validator.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script> 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
 <script>
   $('.select2').select2();
 

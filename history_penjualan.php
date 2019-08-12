@@ -76,9 +76,13 @@
    });
 
 		$('#THistory').dataTable( {
+      "dom": "Bfrtip",
 			"bProcessing": true,
       "serverSide": true,
       "scrollX": true,
+      "buttons": [
+            "excel"
+        ],
       "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
         console.log(aData)
         return nRow;

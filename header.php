@@ -358,6 +358,9 @@
           <ul class="treeview-menu">
             <li><a href="ListAccountPayable.php"><i class="fa fa-circle-o"></i>Piutang</a></li>
           </ul>
+          <ul class="treeview-menu">
+            <li><a href="PaymentAccountPayable.php"><i class="fa fa-circle-o"></i>Pembayaran Hutang</a></li>
+          </ul>
         </li>
 		<?php } ?>
     <?php $jabatan=$_SESSION['level']?>
@@ -425,12 +428,8 @@
           </a>
 		  <?php //$jabatan=$_SESSION['level']?>
           <ul class="treeview-menu">
-
             <li><a href="pelanggan_tampil.php"><i class="fa fa-circle-o"></i> Daftar pelanggan</a></li>
-			<?php //if ($jabatan=='Super Super Admin' or $jabatan=='Super Admin'){
-		?>
             <li><a href="pelanggan_tbh.php"><i class="fa fa-circle-o"></i>Tambah pelanggan</a></li>
-
 			<?php } ?>
 
           </ul>
@@ -455,14 +454,7 @@
           <ul class="treeview-menu">
             <li><a href="suplier_tampil.php"><i class="fa fa-circle-o"></i>Suplier</a></li>
             <li><a href="suplier_tbh.php"><i class="fa fa-circle-o"></i> Tambah Suplier</a></li>
-
-			<li><a href="suplier_hutang.php"><i class="fa fa-circle-o"></i>Bayar Hutang</a></li>
-
-
-
-
-
-</ul>
+          </ul>
 		  </li>
 		  <li class="treeview">
         <a href="#">

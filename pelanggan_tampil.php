@@ -35,39 +35,67 @@
          <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
+                  <th>Lihat Detail Piutang</th>
                   <th>Nama Pelanggan</th>
                   <th>Alamat</th>
                   <th>Saldo</th>
-                  <th>Hutang</th>
                   <th>No Handphone</th>
-                 
-				  <th>Action</th>
+                  <th>Total Hutang</th>
+                  <th>Total Bayar</th>
+                  <th>Sisa</th>
+                  <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
 				<?php
-					$sql="SELECT * FROM pelanggan";
+					$sql="SELECT
+          customer.id_pelanggan,
+          customer.nama_pelanggan,
+          customer.alamat,
+          customer.saldo,
+          customer.nohp,
+          (
+            SELECT
+              ifnull(sum(aa.total), 0)
+            FROM
+              ap AS aa
+            WHERE
+              aa.customer_id = customer.id_pelanggan
+          ) AS TotalHutang,
+          (
+            SELECT
+              ifnull(sum(aa.total), 0)
+            FROM
+              appayment AS aa
+            WHERE
+              aa.customer_id = customer.id_pelanggan
+          ) AS TotalPembayaranHutang
+        FROM
+          pelanggan customer
+        
+        
+        ";
 					$exe=mysqli_query($koneksi,$sql);
 					while($data=mysqli_fetch_array($exe)){
-             $hutang ="Rp. ".number_format($data['hutang'],'0',',','.')."-";
-          
-				?>
+                $SisaHutang = $data['TotalHutang'] - $data['TotalPembayaranHutang'];
+                $hutang ="Rp. ".number_format($data['TotalHutang'],'0',',','.')."-";
+                $bayarhutang ="Rp. ".number_format($data['TotalPembayaranHutang'],'0',',','.')."-";
+                $Sisa ="Rp. ".number_format($SisaHutang,'0',',','.')."-";
+                
+          ?>
                 <tr>
+                  <td> <a class="btn btn-warning" href="HistoryPiutang.php?id=<?php echo $data['id_pelanggan'];?>"> <span class="glyphicon glyphicon-pencil"></span> Detail Hutang</a></td>
                   <td><?php echo $data['nama_pelanggan'];?></td>
-                  <td><?php echo $data['alamat'];?>
+                  <td><?php echo $data['alamat'];?></td>
+                  <td><?php echo $data['saldo'];?></td>
+				          <td><?php echo $data['nohp'];?></td>
+                  <td><?php echo $hutang; ?></td>
+				          <td><?php echo $bayarhutang;?></td>
+                  <td><?php echo $Sisa;?></td>
+                  <td>
+                      <a class="btn btn-warning" href="pelanggan_ubah.php?id=<?php echo $data['id_pelanggan'];?>"> <span class="glyphicon glyphicon-pencil"></span> Edit</a>
+                      <a class="btn btn-danger" onclick="if (confirm('Apakah anda yakin ingin menghapus data ini ?')){ location.href='pelanggan_hapus.php?id=<?php echo $data['id_pelanggan']; ?>' }"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
                   </td>
-                  <td><?php echo $data['saldo'];?>
-                  </td>
-                  
-                  <td><?php echo $hutang;?></td>
-                  
-				  <td><?php echo $data['nohp'];?></td>
-				  <td>
-				 <a class="btn btn-warning" href="pelanggan_ubah.php?id=<?php echo $data['id_pelanggan'];?>"> <span class="glyphicon glyphicon-pencil"></span> Edit</a>
-				 
-				 <a class="btn btn-danger" onclick="if (confirm('Apakah anda yakin ingin menghapus data ini ?')){ location.href='pelanggan_hapus.php?id=<?php echo $data['id_pelanggan']; ?>' }"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
-				  
-				  </td>
                 </tr>
 					<?php } ?>
                 

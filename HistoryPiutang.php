@@ -31,7 +31,7 @@
 
           <thead>
           <tr>
-              <th>Suplier</th>
+              <th>Customer</th>
               <th>Tanggal</th>
               <th>Credit</th>
               <th>Debit</th>
@@ -42,37 +42,37 @@
           <?php
           $supplier_id = $_GET['id'];
           $sql="SELECT
-          HistoryAR.nama_suplier,
-          HistoryAR.Tanggal,
-          sum(HistoryAR.Credit) AS Credit,
-          sum(HistoryAR.Debit) AS Debit
+          HistoryAP.nama_pelanggan,
+          HistoryAP.Tanggal,
+          sum(HistoryAP.Credit) AS Credit,
+          sum(HistoryAP.Debit) AS Debit
         FROM
           (
             SELECT
-              b.nama_suplier,
+              b.nama_pelanggan,
               Date(a.date) AS Tanggal,
               a.total AS Credit,
               0 AS Debit
             FROM
-              ar AS a
-            LEFT JOIN suplier AS b ON a.supplier_id = b.id_suplier
+              ap AS a
+            LEFT JOIN pelanggan AS b ON a.customer_id = b.id_pelanggan
             WHERE
-            id_suplier = ".$supplier_id."
-            UNION ALL
+            b.id_pelanggan = '$supplier_id'
+            union
               SELECT
-                b.nama_suplier,
+                b.nama_pelanggan,
                 Date(a.date) AS Tanggal,
                 0 AS Credit,
                 a.total AS Debit
               FROM
-                arpayment AS a
-              LEFT JOIN suplier AS b ON a.supplier_id = b.id_suplier
+                appayment AS a
+              LEFT JOIN pelanggan AS b ON a.customer_id = b.id_pelanggan
               WHERE
-                id_suplier = ".$supplier_id."
-          ) HistoryAR
+                b.id_pelanggan = '$supplier_id'
+          ) HistoryAP
         GROUP BY
-          HistoryAR.nama_suplier,
-          HistoryAR.Tanggal";
+          HistoryAP.nama_pelanggan,
+          HistoryAP.Tanggal";
           $exe=mysqli_query($koneksi,$sql);
           while($data=mysqli_fetch_array($exe))
           {
@@ -80,7 +80,7 @@
             $TotalDebit ="Rp. ".number_format($data['Debit'],'0',',','.')."-";
             ?>
            <tr>
-            <td><?php echo $data['nama_suplier'];?></td>
+            <td><?php echo $data['nama_pelanggan'];?></td>
             <td><?php echo $data['Tanggal'];?></td>
             <td><?php echo $TotalCredit;?></td>
             <td><?php echo $TotalDebit;?></td>
